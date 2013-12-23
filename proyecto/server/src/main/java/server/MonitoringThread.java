@@ -4,6 +4,9 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.quartz.JobDetail;
@@ -24,7 +27,22 @@ public class MonitoringThread implements Runnable{
 		
 	}
 	
-	public MonitoringThread(int id, String url, int frequency, Date endDate){
+	public MonitoringThread(int id, String url, int frequency, Date endDate) throws IOException, NoSuchAlgorithmException{
+		this.id = id;
+		this.url = url;
+		this.frequency = frequency;
+		this.endDate = endDate;		
+		
+		// Get the html of the page
+		HTMLPage html = new HTMLPage(url);
+	    
+	    // Hash
+		String hash = html.getHash();
+		
+		// Write into BD
+		PrintWriter pw = new PrintWriter("last"+id);
+		pw.print(hash);
+		pw.close();
 		
 	}
 	
@@ -37,6 +55,7 @@ public class MonitoringThread implements Runnable{
 	        // define the job and tie it to our MonitorinJob class
 	        JobDetail job = newJob(MonitoringJob.class)
 	            .withIdentity("job"+id, "monitoring")
+	            .usingJobData("id", id)
 	            .usingJobData("url", url)
 	            .build();
 	        
