@@ -5,7 +5,6 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
@@ -40,9 +39,7 @@ public class MonitoringThread implements Runnable{
 		String hash = html.getHash();
 		
 		// Write into BD
-		PrintWriter pw = new PrintWriter("last"+id);
-		pw.print(hash);
-		pw.close();
+
 		
 	}
 	
@@ -63,7 +60,7 @@ public class MonitoringThread implements Runnable{
 	        Trigger trigger = newTrigger()
 	            .withIdentity("trigger"+id, "monitoring")
 	            .withSchedule(simpleSchedule()
-	            .withIntervalInHours(frequency)
+	            .withIntervalInSeconds(frequency)
 	            .repeatForever())
 	            .endAt(endDate)
 	            .build();
@@ -74,7 +71,13 @@ public class MonitoringThread implements Runnable{
 	        // Start up the scheduler (nothing can actually run until the 
 	        // scheduler has been started)
 	        sched.start();
-	
+	        
+	        try {
+				Thread.sleep(305L * 1000L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 	        // shut down the scheduler
 	        sched.shutdown(true);
 		} 
