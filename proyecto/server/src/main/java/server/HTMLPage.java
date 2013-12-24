@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 
 public class HTMLPage {
 	
@@ -37,10 +38,18 @@ public class HTMLPage {
 	    byte[] plainText = html.getBytes("UTF8");
 	    
 	    // get a message digest object using the SHA-1 algorithm
-	    MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
-		messageDigest.update(plainText);
-		String hash = new String( messageDigest.digest(), "UTF8") ;
-		return hash;
+	    MessageDigest md = MessageDigest.getInstance("SHA-1"); 
+	    return byteArray2Hex(md.digest(plainText));
+	}
+	
+	private String byteArray2Hex(final byte[] hash) {
+	    Formatter formatter = new Formatter();
+	    for (byte b : hash) {
+	        formatter.format("%02x", b);
+	    }
+	    String hexa = formatter.toString();
+	    formatter.close();
+	    return hexa;
 	}
 
 }
