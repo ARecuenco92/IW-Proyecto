@@ -73,7 +73,7 @@ public class MonitoringThread implements Runnable{
 	        sched.start();
 	        
 	        try {
-				Thread.sleep(305L * 1000L);
+				Thread.sleep(endDate.getTime() * 1000L);
 			} 
 	        catch (InterruptedException e) {
 				e.printStackTrace();
@@ -88,7 +88,7 @@ public class MonitoringThread implements Runnable{
 
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
-		Date s = new Date(System.currentTimeMillis()+300000);
+		Date s = new Date(System.currentTimeMillis()+305000);
 		MonitoringThread m = new  MonitoringThread(1, "http://oracle.com", 60, s);	
 		Thread r = new Thread(m); 
 		r.start();
