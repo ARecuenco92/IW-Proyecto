@@ -6,7 +6,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
+import java.sql.Date;
 
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -32,14 +32,14 @@ public class MonitoringThread implements Runnable{
 		this.frequency = frequency;
 		this.endDate = endDate;		
 		
-		// Get the html of the page
+		// Get the HTML of the page
 		HTMLPage html = new HTMLPage(url);
 	    
 	    // Hash
 		String hash = html.getHash();
 		
 		// Write into BD
-
+		new Facade().insert(id, url, frequency, endDate, hash);
 		
 	}
 	
@@ -74,8 +74,8 @@ public class MonitoringThread implements Runnable{
 	        
 	        try {
 				Thread.sleep(305L * 1000L);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+			} 
+	        catch (InterruptedException e) {
 				e.printStackTrace();
 			} 
 	        // shut down the scheduler
@@ -86,4 +86,11 @@ public class MonitoringThread implements Runnable{
 		}
 	}
 
+	
+	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
+		Date s = new Date(System.currentTimeMillis()+300000);
+		MonitoringThread m = new  MonitoringThread(1, "http://oracle.com", 60, s);	
+		Thread r = new Thread(m); 
+		r.start();
+	}
 }

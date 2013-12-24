@@ -10,15 +10,14 @@ public class ChangeDAO {
         try{
             /* Create "preparedStatement". */
             String queryString = "INSERT INTO cambios " +
-                "(idDatos, idCambios, FechaHora, cambio) VALUES (?, ?, ?, ?)";                    
+                "(idDatos, FechaHora, cambio) VALUES (?, ?, ?)";                    
             PreparedStatement preparedStatement = 
                 connection.prepareStatement(queryString);
             
             /* Fill "preparedStatement". */    
             preparedStatement.setInt(1, change.getIdData());
-            preparedStatement.setInt(2, change.getIdChange());
-            preparedStatement.setDate(3, change.getDate());
-            preparedStatement.setBoolean(4, change.getChange());
+            preparedStatement.setDate(2, change.getDate());
+            preparedStatement.setBoolean(3, change.getChange());
 
             /* Execute query. */                    
             int insertedRows = preparedStatement.executeUpdate();
