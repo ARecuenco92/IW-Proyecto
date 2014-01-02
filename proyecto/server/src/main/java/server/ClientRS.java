@@ -11,13 +11,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class ClientRS {
 
 	public static void main(String[] args) {
-		/*Client c = ClientBuilder.newClient();
-		WebTarget wt = c.target("http://localhost:8080/helloWorld/sayHello/");
-		Response rp = wt.request().post();
-		System.out.println(ClientBuilder.newClient()
-				.target("http://localhost:8080/helloWorld/sayHello/{name}")
-				.resolveTemplate("name", "World!")
-				.request("text/plain").get().readEntity(String.class));*/
 		HttpClient httpClient = new DefaultHttpClient();
 
 	    try {
