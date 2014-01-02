@@ -17,7 +17,7 @@ public class Server {
 		LOGGER.setLevel(Level.FINER);
 		
 		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(
-				URI.create("http://localhost:9090/helloWorld") , 
+				URI.create("http://localhost:9090/helloWorld"), 
 				new ResourceConfig().register(CheckService.class));
 		try {
 			server.start();

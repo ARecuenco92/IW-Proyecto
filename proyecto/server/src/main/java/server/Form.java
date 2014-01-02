@@ -1,44 +1,54 @@
 package server;
 
+import java.util.Date;
+
 public class Form {
 
-	private int id;
-
-    private String name;
+	private String shortUrl;
+	private int freq;
+	private Date fechaFin;
+	private String email;
     
-    private String surname;
-    
-    public Form(int id, String name, String surname){
-    	this.id = id;
-    	this.name = name;
-    	this.surname = surname;
+    public Form(String shortUrl, int freq, Date fechaFin, String email){
+    	this.shortUrl = shortUrl;
+    	this.freq= freq;
+    	this.fechaFin = fechaFin;
+    	this.email = email;
     }
     
-    public int getId() {
-        return id;
+    public String getShortUrl() {
+        return shortUrl;
 	}
 	
-	public void setId(int id) {
-	    this.id = id;
+	public void setShortUrl(String shortUrl) {
+	    this.shortUrl = shortUrl;
 	}
 	
-	public String getName() {
-	    return name;
+	public int getFreq() {
+	    return freq;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setFreq(int freq) {
+		this.freq = freq;
 	}
 	
-	public String getSurname() {
-		return surname;
+	public String getEmail() {
+		return email;
 	}
 	
-	public void setSurname(String surname) {
-	    this.surname = surname;
+	public void setEmail(String email) {
+	    this.email = email;
+	}
+	
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+	
+	public void setFechafin(Date fechaFin) {
+	    this.fechaFin = fechaFin;
 	}
 	
 	public String toString(){
-		return id+" "+name+" "+surname;
+		return "URL: "+shortUrl+"  Frecuencia: "+freq+"  FechaFin: "+fechaFin+"  Email: "+email;
 	}
 }
