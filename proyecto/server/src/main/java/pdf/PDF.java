@@ -32,22 +32,25 @@ public class PDF {
 	 * EL contenido debe tener el siguiente formato:
 	 * POR EJEMPLO:
 	 * String[][] content = { 
-     *               {"23/12/2013","17:34", "No"},
-     *               {"23/12/2013","17:34", "No"},
-     *               {"23/12/2013","17:34", "No"},
-     *               {"23/12/2013","17:34", "No"}} ;
+     *               {"23/12/2013", "No"},
+     *               {"23/12/2013", "No"},
+     *               {"23/12/2013", "No"},
+     *               {"23/12/2013", "No"}} ;
 	 * 
-	 * Fecha , hora, cambio
+	 * Fecha , cambio
 	 */
 	
 	
-	public PDF(String pdfName, String webName, String startDate, String endDate, String frecuency, String emailAddress){
+	public PDF(String pdfName, String webName, String startDate, String endDate, String frecuency, String emailAddress,
+			String numberOfChanges, String[][] content){
 		pdfName = this.pdfName;
 		webName = this.webName; 
 		startDate = this.startDate;
 		endDate = this.endDate;
 		frecuency = this.frecuency;
 		emailAddress = this.emailAdress;
+		numberOfChanges = this.numberOfChanges;
+		content = this.content;
 	}
 	public void generatePDF() {
 		Document document = new Document();
@@ -100,10 +103,10 @@ public class PDF {
             
             
             String[][] content = { //Contenido a añadir a la tabla
-                    {"23/12/2013","17:34", "No"},
-                    {"23/12/2013","17:34", "No"},
-                    {"23/12/2013","17:34", "No"},
-                    {"23/12/2013","17:34", "No"}} ;
+                    {"23/12/2013", "No"},
+                    {"23/12/2013", "No"},
+                    {"23/12/2013", "No"},
+                    {"23/12/2013", "No"}} ;
             PdfPTable table = createTable(content); //Crea la tabla
             document.add(table); //La añade al documento
             document.close(); //Cierra el documento
@@ -117,13 +120,11 @@ public class PDF {
 	 */
 	public  static PdfPTable createTable(String[][] content){
 		Font cabecera = new Font(Font.FontFamily.HELVETICA  , 14, Font.BOLD); //fuente para la cabecera de la tabla
-		PdfPTable table = new PdfPTable(3); // 3 columns.
+		PdfPTable table = new PdfPTable(2); // 2 columns.
 
         PdfPCell fecha = new PdfPCell(new Paragraph("Fecha",cabecera));
-        PdfPCell hora = new PdfPCell(new Paragraph("Hora", cabecera));
         PdfPCell cambio = new PdfPCell(new Paragraph("Cambio", cabecera));
         table.addCell(fecha);
-        table.addCell(hora);
         table.addCell(cambio);
 		
         //añade a la tabla el contenido que se le pasa por parámetro
