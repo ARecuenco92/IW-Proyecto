@@ -127,7 +127,7 @@ public class Facade {
            	Date fecha = rs.getDate("FechaHora");
            	int cambio = rs.getInt("cambio");	
            	
-           	content.add("fechaString"+" "+"cambioString");
+           	content.add(fecha.toString()+" "+cambio);
            	
            }                   
         } 
