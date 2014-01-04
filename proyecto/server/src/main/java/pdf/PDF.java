@@ -18,12 +18,43 @@ public class PDF {
 	/**
 	 * Autores Pallas, Martin, Recuenco
 	 */
-	public static void main(String[] args) {
+	
+	private String pdfName; //nombre del pdf
+	private String webName; //nombre de la web monitorizada
+	private String startDate; //fecha inicio monitorización
+	private String endDate; //fecha fin monitorización
+	private String frecuency; //frecuencia monitorización (en horas)
+	private String emailAdress; // correo al cual mandar el pdf
+	private String numberOfChanges; //numero de cambios en la web monitorizada
+	private String[][] content; //contenido almacenado en la BD para generar la tabla
+	
+	/*
+	 * EL contenido debe tener el siguiente formato:
+	 * POR EJEMPLO:
+	 * String[][] content = { 
+     *               {"23/12/2013","17:34", "No"},
+     *               {"23/12/2013","17:34", "No"},
+     *               {"23/12/2013","17:34", "No"},
+     *               {"23/12/2013","17:34", "No"}} ;
+	 * 
+	 * Fecha , hora, cambio
+	 */
+	
+	
+	public PDF(String pdfName, String webName, String startDate, String endDate, String frecuency, String emailAddress){
+		pdfName = this.pdfName;
+		webName = this.webName; 
+		startDate = this.startDate;
+		endDate = this.endDate;
+		frecuency = this.frecuency;
+		emailAddress = this.emailAdress;
+	}
+	public void generatePDF() {
 		Document document = new Document();
 
         try {
             PdfWriter.getInstance(document,
-                new FileOutputStream("tabla2.pdf"));
+                new FileOutputStream(pdfName));
     
             document.open(); //Abre el documento
             
@@ -52,17 +83,16 @@ public class PDF {
             Font fontSubtitulo = new Font(Font.FontFamily.HELVETICA  , 12);
             subtitulo.setFont(fontSubtitulo);
             
-           /* subtitulo.add(new Phrase("Web monitorizada: www.vayapardo.com")); 
-            document.add(subtitulo);*/
+         
             
             
             List unorderedList = new List(List.UNORDERED);
-            unorderedList.add(new ListItem("Web monitorizada: www.vayapardo.com"));
-            unorderedList.add(new ListItem("Fecha inicio: 12/12/2013"));
-            unorderedList.add(new ListItem("Fecha fin: 22/12/2013"));
-            unorderedList.add(new ListItem("Monitorizado cada: 5 minutos"));
-            unorderedList.add(new ListItem("Número de cambios: 56"));
-            unorderedList.add(new ListItem("E-mail entrega: cjperez@8086.com"));
+            unorderedList.add(new ListItem("Web monitorizada: "+webName));
+            unorderedList.add(new ListItem("Fecha inicio: "+startDate));
+            unorderedList.add(new ListItem("Fecha fin: "+endDate));
+            unorderedList.add(new ListItem("Monitorizado cada: "+frecuency+" minutos"));
+            unorderedList.add(new ListItem("Número de cambios: "+numberOfChanges));
+            unorderedList.add(new ListItem("E-mail entrega: "+emailAdress));
             
             subtitulo.add(unorderedList);
 
