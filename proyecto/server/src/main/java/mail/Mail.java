@@ -24,8 +24,17 @@ public class Mail {
 	 * Autores: Pallas, Martin, Recuenco.
 	 */
 
+	private String pageName; //Nombre de la página que se monitoriza
+	private String emailAddress;   //Dirección de email al cual mandamos el informe
+	private String pdfName; //Nombre del fichero PDF que se envia 
 	
-	public static void main(String[] args) {
+	public Mail(String pageName, String emailAddress, String pdfName){
+		pageName = this.pageName;
+		emailAddress = this.emailAddress;
+		pdfName = this.pdfName;
+		
+	}
+	public void sendMail() {
 
 	    final String username = "cjperez8086@gmail.com";
 	    final String password = "club8086";
@@ -48,9 +57,8 @@ public class Mail {
 	        Message message = new MimeMessage(session);
 	        message.setFrom(new InternetAddress("IW7I"));
 	        message.setRecipients(Message.RecipientType.TO,
-	                InternetAddress.parse("richisuarg5@gmail.com"));
+	                InternetAddress.parse(emailAddress));
 	        message.setSubject("Informe de monitorización - IW7I");
-	        //message.setText("Le enviamos el informe de la pagina www.vayapardo.com, adjuntado en un documento pdf.");
 
 	        MimeBodyPart messageBodyPart = new MimeBodyPart();
 	       
@@ -60,8 +68,8 @@ public class Mail {
 	        // Create the message part
 	        BodyPart messageBodyPart2 = new MimeBodyPart();
 	        // Fill the message
-	        messageBodyPart2.setText("Le enviamos el informe de la pagina www.vayapardo.com, adjuntado en un documento pdf.");
-	        messageBodyPart2.setContent("Le enviamos el informe de la pagina www.vayapardo.com, adjuntado en un documento pdf.", "text/html");
+	        messageBodyPart2.setText("Le enviamos el informe de la pagina"+ pageName+", adjuntado en un documento pdf.");
+	        messageBodyPart2.setContent("Le enviamos el informe de la pagina"+ pageName+", adjuntado en un documento pdf.", "text/html");
 	        multipart.addBodyPart(messageBodyPart2); //se añade
 	        
 	        
@@ -69,8 +77,8 @@ public class Mail {
 	        messageBodyPart = new MimeBodyPart();
 	        
 	        
-	        String file = "tabla.pdf";
-	        String fileName = "tabla.pdf";
+	        String file = pdfName;
+	        String fileName = pdfName;
 	        DataSource source = new FileDataSource(file);
 	        messageBodyPart.setDataHandler(new DataHandler(source));
 	        messageBodyPart.setFileName(fileName);
