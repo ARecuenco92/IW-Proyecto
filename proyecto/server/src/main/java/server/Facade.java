@@ -97,5 +97,58 @@ public class Facade {
         }        
 	}
 	
+	/*
+	 * Devuelve todos los cambios relacionados con la tabla identificada con [idDatos].
+	 * Es decir, devuelve todos los cambios de una página monitorizada en concreto.
+	 * Estos cambios son devueltos en el formato específico que necesita la clase PDF 
+	 * para generar el informe.
+	 */
+	public String[][] getChanges(int idDatos){
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String[][] content = null;
+        try{
+		   connection = ConnectionManager.getConnection();
+           /* Create "preparedStatement". */
+           String queryString = "SELECT FechaHora, cambio FROM cambios WHERE idDatos = ?";                    
+           preparedStatement = 
+               connection.prepareStatement(queryString);
+           
+           /* Fill "preparedStatement". */    
+           preparedStatement.setInt(1, idDatos);
+           
+
+           /* Execute query. */                    
+           ResultSet rs = preparedStatement.executeQuery(queryString );
+           while (rs.next()) {
+        	   //No sé como cogerlo en el formato porque no es string
+           	String FechaHora = rs.getString("FechaHora");
+           	String cambio = rs.getString("cambio");	
+           }                   
+        } 
+        catch (Exception e) {
+            e.printStackTrace(System.err);
+        } 
+        finally{
+        	try{
+	        	if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+	 
+				if (connection != null) {
+					connection.close();
+				}
+				
+        	} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    			
+    		}
+        	
+        }
+		return content; //Devuelve los cambios
+	}
+	
 	
 }
