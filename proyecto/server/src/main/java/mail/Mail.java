@@ -29,9 +29,9 @@ public class Mail {
 	private String pdfName; //Nombre del fichero PDF que se envia 
 	
 	public Mail(String pageName, String emailAddress, String pdfName){
-		pageName = this.pageName;
-		emailAddress = this.emailAddress;
-		pdfName = this.pdfName;
+		this.pageName = pageName;
+		this.emailAddress = emailAddress;
+		this.pdfName = pdfName;
 		
 	}
 	public void sendMail() {

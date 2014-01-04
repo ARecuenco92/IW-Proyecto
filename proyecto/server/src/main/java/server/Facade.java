@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Facade {
 
@@ -103,11 +104,11 @@ public class Facade {
 	 * Estos cambios son devueltos en el formato específico que necesita la clase PDF 
 	 * para generar el informe.
 	 */
-	public String[][] getChanges(int idDatos){
+	public ArrayList<String> getChanges(int idDatos){
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String[][] content = null;
+		ArrayList<String> content = new ArrayList<String>();
         try{
 		   connection = ConnectionManager.getConnection();
            /* Create "preparedStatement". */
@@ -123,8 +124,11 @@ public class Facade {
            ResultSet rs = preparedStatement.executeQuery(queryString );
            while (rs.next()) {
         	   //No sé como cogerlo en el formato porque no es string
-           	String FechaHora = rs.getString("FechaHora");
-           	String cambio = rs.getString("cambio");	
+           	Date fecha = rs.getDate("FechaHora");
+           	int cambio = rs.getInt("cambio");	
+           	
+           	content.add("fechaString"+" "+"cambioString");
+           	
            }                   
         } 
         catch (Exception e) {

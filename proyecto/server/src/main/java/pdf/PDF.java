@@ -1,6 +1,7 @@
 package pdf;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -26,31 +27,28 @@ public class PDF {
 	private String frecuency; //frecuencia monitorización (en horas)
 	private String emailAdress; // correo al cual mandar el pdf
 	private String numberOfChanges; //numero de cambios en la web monitorizada
-	private String[][] content; //contenido almacenado en la BD para generar la tabla
+	private ArrayList<String> content; //contenido almacenado en la BD para generar la tabla
 	
 	/*
 	 * EL contenido debe tener el siguiente formato:
 	 * POR EJEMPLO:
-	 * String[][] content = { 
-     *               {"23/12/2013", "No"},
-     *               {"23/12/2013", "No"},
-     *               {"23/12/2013", "No"},
-     *               {"23/12/2013", "No"}} ;
+	 * ArrayList<String> 
+     *        y los strings "fecha cambio"    
 	 * 
-	 * Fecha , cambio
+	 * 
 	 */
 	
 	
 	public PDF(String pdfName, String webName, String startDate, String endDate, String frecuency, String emailAddress,
-			String numberOfChanges, String[][] content){
-		pdfName = this.pdfName;
-		webName = this.webName; 
-		startDate = this.startDate;
-		endDate = this.endDate;
-		frecuency = this.frecuency;
-		emailAddress = this.emailAdress;
-		numberOfChanges = this.numberOfChanges;
-		content = this.content;
+			String numberOfChanges, ArrayList<String>  content){
+		this.pdfName = pdfName;
+		this.webName = webName; 
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.frecuency = frecuency;
+		this.emailAdress = emailAddress;
+		this.numberOfChanges = numberOfChanges;
+		this.content = content;
 	}
 	public void generatePDF() {
 		Document document = new Document();
@@ -102,11 +100,7 @@ public class PDF {
             document.add(subtitulo);
             
             
-            String[][] content = { //Contenido a añadir a la tabla
-                    {"23/12/2013", "No"},
-                    {"23/12/2013", "No"},
-                    {"23/12/2013", "No"},
-                    {"23/12/2013", "No"}} ;
+            String[][] content = convertTable(this.content);
             PdfPTable table = createTable(content); //Crea la tabla
             document.add(table); //La añade al documento
             document.close(); //Cierra el documento
@@ -137,6 +131,26 @@ public class PDF {
         }
 		return table;
 		
+	}
+	
+	/*
+	 * Convierte un ArrayList<String> a la tabla String[][]
+	 * Los strings del arraylist deben de tener el formato "fecha cambio" 
+	 */
+	private String[][] convertTable (ArrayList<String> data){
+		
+		String[][] result = new String[data.size()][2];
+		
+		int i = 0;
+		for (String row : data) {
+			String[] splitStr = row.split("\\s+");
+			result[i][0]=splitStr[0];
+			result[i][1]=splitStr[1];
+			i++;
+					
+	    }
+		
+		return result;
 	}
 
 	
