@@ -88,7 +88,7 @@ public class MonitoringThread implements Runnable{
 	        // Generate PDF
 	        ArrayList<String> changes = new Facade().getChanges(id);
 	        int numberOfChanges = getNumberOfCHanges(changes);
-	        String pdfName = "Informe monitorización.pdf";
+	        String pdfName = "informe_"+id+".pdf";
 	        PDF pdf = new PDF(pdfName, url, startDate.toString(), endDate.toString(), Integer.toString(frequency), 
 	        		"cjperez8086@gmail.com", Integer.toString(numberOfChanges), changes);
 	        pdf.generatePDF();
@@ -119,7 +119,7 @@ public class MonitoringThread implements Runnable{
 	}
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
 		Date s = new Date(System.currentTimeMillis()+305000);
-		MonitoringThread m = new  MonitoringThread(7, "http://localhost:9999/sslist/login.html", 60, s);	
+		MonitoringThread m = new  MonitoringThread(9, "http://localhost:9999/sslist/login.html", 60, s);	
 		Thread r = new Thread(m); 
 		r.start();
 	}
