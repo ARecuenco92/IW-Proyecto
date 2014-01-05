@@ -87,9 +87,10 @@ public class MonitoringThread implements Runnable{
 			} 
 	        // Generate PDF
 	        ArrayList<String> changes = new Facade().getChanges(id);
-	        String pdfName = "Informe monitorización "+url+".pdf";
+	        int numberOfChanges = getNumberOfCHanges(changes);
+	        String pdfName = "Informe monitorización.pdf";
 	        PDF pdf = new PDF(pdfName, url, startDate.toString(), endDate.toString(), Integer.toString(frequency), 
-	        		"cjperez8086@gmail.com", Integer.toString(changes.size()), changes);
+	        		"cjperez8086@gmail.com", Integer.toString(numberOfChanges), changes);
 	        pdf.generatePDF();
 	        
 	        // Send mail
@@ -103,10 +104,22 @@ public class MonitoringThread implements Runnable{
 		}
 	}
 
-	
+	private int getNumberOfCHanges (ArrayList<String> changes){
+		int count = 0;
+		for (String row : changes) {
+			String[] splitStr = row.split("\\s+");
+			
+			if(splitStr[1].equals("Si")){
+				count++;
+			}
+			
+					
+	    }
+		return count;
+	}
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
 		Date s = new Date(System.currentTimeMillis()+305000);
-		MonitoringThread m = new  MonitoringThread(4, "http://localhost:8080/index.html", 60, s);	
+		MonitoringThread m = new  MonitoringThread(7, "http://localhost:9999/sslist/login.html", 60, s);	
 		Thread r = new Thread(m); 
 		r.start();
 	}
