@@ -32,14 +32,12 @@ public class MonitoringJob implements Job{
 			Date date = new Date(System.currentTimeMillis());
 			Facade facade = new Facade();
 			String last = facade.getHash(id);
-			System.out.println(last);
-			System.out.println(last.length());
-			System.out.println(hash);
-			System.out.println(hash.length());
 			boolean change = false;
 			if(!last.equals(hash)){
-				System.out.println("Sí hay cambio");
 				change = true;
+				//Update the hash
+				facade.update(id, hash);
+				
 			}
 			// Write Change into BD
 			ChangeVO changeVO = new ChangeVO(id, -1, date, change);

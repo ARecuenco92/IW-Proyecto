@@ -112,7 +112,7 @@ public class PDF {
 	/*
 	 * Crea una tabla con el contenido pasado por parámetro [content] y la devuelve
 	 */
-	public  static PdfPTable createTable(String[][] content){
+	private  static PdfPTable createTable(String[][] content){
 		Font cabecera = new Font(Font.FontFamily.HELVETICA  , 14, Font.BOLD); //fuente para la cabecera de la tabla
 		PdfPTable table = new PdfPTable(2); // 2 columns.
 

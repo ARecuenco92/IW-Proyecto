@@ -7,6 +7,9 @@ import static org.quartz.TriggerBuilder.newTrigger;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.ArrayList;
+
+import mail.Mail;
 
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -15,10 +18,13 @@ import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
+import pdf.PDF;
+
 public class MonitoringThread implements Runnable{
 
 	private int id;
 	private String url;
+	private Date startDate;
 	private int frequency;
 	private Date endDate;
 	
@@ -29,6 +35,7 @@ public class MonitoringThread implements Runnable{
 	public MonitoringThread(int id, String url, int frequency, Date endDate) throws IOException, NoSuchAlgorithmException{
 		this.id = id;
 		this.url = url;
+		this.startDate = new Date(System.currentTimeMillis());
 		this.frequency = frequency;
 		this.endDate = endDate;		
 		
@@ -78,6 +85,16 @@ public class MonitoringThread implements Runnable{
 	        catch (InterruptedException e) {
 				e.printStackTrace();
 			} 
+	        // Generate PDF
+	        ArrayList<String> changes = new Facade().getChanges(id);
+	        String pdfName = "Informe monitorización "+url;
+	        PDF pdf = new PDF(pdfName, url, startDate.toString(), endDate.toString(), Integer.toString(frequency), 
+	        		"mail", Integer.toString(changes.size()), changes);
+	        pdf.generatePDF();
+	        
+	        // Send mail
+	        Mail mail = new Mail(url, "mail", pdfName);
+	        mail.sendMail();
 	        // shut down the scheduler
 	        sched.shutdown(true);
 		} 
@@ -89,7 +106,7 @@ public class MonitoringThread implements Runnable{
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
 		Date s = new Date(System.currentTimeMillis()+305000);
-		MonitoringThread m = new  MonitoringThread(1, "http://oracle.com", 60, s);	
+		MonitoringThread m = new  MonitoringThread(2, "http://localhost:8080/index.html", 60, s);	
 		Thread r = new Thread(m); 
 		r.start();
 	}

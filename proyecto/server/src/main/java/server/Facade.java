@@ -49,7 +49,42 @@ public class Facade {
            int insertedRows = preparedStatement.executeUpdate();
                
            if (insertedRows != 1) {
-               throw new SQLException( "Problemas insertando cambios");
+               throw new SQLException( "Problemas insertando datos");
+           }
+	       connection.close();                    
+        } 
+        catch (Exception e) {
+            e.printStackTrace(System.err);
+        } 
+        finally{
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        }   
+	}
+	
+	public void update(int id, String hash){
+		Connection connection = null;
+        try{
+		   connection = ConnectionManager.getConnection();
+           /* Create "preparedStatement". */
+           String queryString = "UPDATE datos " +
+               "SET hash= ? WHERE idDatos= ?";                    
+           PreparedStatement preparedStatement = 
+               connection.prepareStatement(queryString);
+           
+           /* Fill "preparedStatement". */ 
+           preparedStatement.setString(1, hash);
+           preparedStatement.setInt(2, id);
+           
+           /* Execute query. */                    
+           int insertedRows = preparedStatement.executeUpdate();
+               
+           if (insertedRows != 1) {
+               throw new SQLException( "Problemas actualizando datos");
            }
 	       connection.close();                    
         } 
