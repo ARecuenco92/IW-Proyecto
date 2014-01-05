@@ -25,11 +25,16 @@ public class Facade {
             e.printStackTrace(System.err);
         } 
         finally{
-        	connection.close();
+    		try {
+    			connection.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
         }        
 	}
 	
-	public String getRealURL(String url) throws SQLException{
+	public String getRealURL(String url){
 		Connection connection = null;
 		String realURL = null;
 		try{
@@ -54,13 +59,18 @@ public class Facade {
             e.printStackTrace(System.err);
         } 
         finally{
-        	connection.close();
+    		try {
+    			connection.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
         }
         return realURL;
 	}
 	
 	
-	public void insert(int id, String url, int frequency, Date endDate, String hash){
+	public int insert(int id, String url, int frequency, Date endDate, String hash, String email){
 		Connection connection = null;
         try{
 		   connection = ConnectionManager.getConnection();
@@ -84,6 +94,14 @@ public class Facade {
            if (insertedRows != 1) {
                throw new SQLException( "Problemas insertando datos");
            }
+           
+           queryString = "select last_insert_id() as last_id";
+           preparedStatement = connection.prepareStatement(queryString);
+           ResultSet resultSet = preparedStatement.executeQuery();
+		   if(resultSet.next()){
+	   	  		return resultSet.getInt("last_id");
+	       }
+           
 	       connection.close();                    
         } 
         catch (Exception e) {
@@ -96,7 +114,8 @@ public class Facade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        }   
+        }
+        return 0;
 	}
 	
 	public void update(int id, String hash){
@@ -162,7 +181,12 @@ public class Facade {
             return null;
         } 
         finally{
-        	connection.close();
+    		try {
+    			connection.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
         }        
 	}
 	

@@ -27,7 +27,7 @@ import server.HTMLPage;
 public class MonitoringThread implements Runnable{
 
 	CompleteForm form;
-	int id = 1;
+	int id;
 	
 	public MonitoringThread(){
 		
@@ -43,7 +43,7 @@ public class MonitoringThread implements Runnable{
 		String hash = html.getHash();
 		
 		// Write into BD
-		new Facade().insert(1, form.getRealUrl(), form.getFreq(), form.getFechaFin(), hash);
+		id=new Facade().insert(1, form.getRealUrl(), form.getFreq(), form.getFechaFin(), hash, form.getEmail());
 		
 	}
 	
