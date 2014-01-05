@@ -156,7 +156,7 @@ public class Facade {
            
 
            /* Execute query. */                    
-           ResultSet rs = preparedStatement.executeQuery(queryString );
+           ResultSet rs = preparedStatement.executeQuery();
            while (rs.next()) {
         	   //No sé como cogerlo en el formato porque no es string
            	Date fecha = rs.getDate("FechaHora");

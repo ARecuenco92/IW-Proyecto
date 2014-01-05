@@ -80,20 +80,20 @@ public class MonitoringThread implements Runnable{
 	        sched.start();
 	        
 	        try {
-				Thread.sleep(endDate.getTime() * 1000L);
+				Thread.sleep(endDate.getTime()-startDate.getTime()+10000);
 			} 
 	        catch (InterruptedException e) {
 				e.printStackTrace();
 			} 
 	        // Generate PDF
 	        ArrayList<String> changes = new Facade().getChanges(id);
-	        String pdfName = "Informe monitorización "+url;
+	        String pdfName = "Informe monitorización "+url+".pdf";
 	        PDF pdf = new PDF(pdfName, url, startDate.toString(), endDate.toString(), Integer.toString(frequency), 
-	        		"mail", Integer.toString(changes.size()), changes);
+	        		"cjperez8086@gmail.com", Integer.toString(changes.size()), changes);
 	        pdf.generatePDF();
 	        
 	        // Send mail
-	        Mail mail = new Mail(url, "mail", pdfName);
+	        Mail mail = new Mail(url, "cjperez8086@gmail.com", pdfName);
 	        mail.sendMail();
 	        // shut down the scheduler
 	        sched.shutdown(true);
@@ -106,7 +106,7 @@ public class MonitoringThread implements Runnable{
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
 		Date s = new Date(System.currentTimeMillis()+305000);
-		MonitoringThread m = new  MonitoringThread(2, "http://localhost:8080/index.html", 60, s);	
+		MonitoringThread m = new  MonitoringThread(4, "http://localhost:8080/index.html", 60, s);	
 		Thread r = new Thread(m); 
 		r.start();
 	}
