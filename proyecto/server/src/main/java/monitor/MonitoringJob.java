@@ -1,4 +1,4 @@
-package server;
+package monitor;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,6 +10,10 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+
+import server.ChangeVO;
+import server.Facade;
+import server.HTMLPage;
 
 public class MonitoringJob implements Job{
 

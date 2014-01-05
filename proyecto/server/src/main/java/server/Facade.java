@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import database.ConnectionGlobalManager;
+import database.ConnectionManager;
+
 public class Facade {
 
 	public void insertChange(ChangeVO change) throws SQLException{

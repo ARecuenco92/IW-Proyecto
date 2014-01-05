@@ -1,4 +1,4 @@
-package server;
+package monitor;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
@@ -19,6 +19,8 @@ import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
 import pdf.PDF;
+import server.Facade;
+import server.HTMLPage;
 
 public class MonitoringThread implements Runnable{
 

@@ -1,15 +1,14 @@
-package server;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionManager {
-	
+public class ConnectionGlobalManager {
 	private final static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-	private final static String DRIVER_URL = "jdbc:mysql://localhost:3306/iweblocal";
-	private final static String USER = "root";
-	private final static String PASSWORD = "";
+	private final static String DRIVER_URL = "jdbc:mysql://ec2-176-34-253-124.eu-west-1.compute.amazonaws.com:3306/ingenieriaweb";
+	private final static String USER = "iwebunizar";
+	private final static String PASSWORD = "zaragoza2013";
 	
 	static {
 		
@@ -21,11 +20,9 @@ public class ConnectionManager {
 		
 	}
 
-	private ConnectionManager() {}
+	private ConnectionGlobalManager() {}
 	
 	public final static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(DRIVER_URL, USER, PASSWORD);
 	}
-	
-	
 }
