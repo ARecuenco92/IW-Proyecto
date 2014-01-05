@@ -158,11 +158,15 @@ public class Facade {
            /* Execute query. */                    
            ResultSet rs = preparedStatement.executeQuery();
            while (rs.next()) {
-        	   //No sé como cogerlo en el formato porque no es string
+        	   //Se cogen los parámetros
            	Date fecha = rs.getDate("FechaHora");
            	int cambio = rs.getInt("cambio");	
+           	String cambioStr = "Si";
+           	if(cambio==0){
+           		cambioStr="No";
+           	}
            	
-           	content.add(fecha.toString()+" "+cambio);
+           	content.add(fecha.toString()+" "+cambioStr);
            	
            }                   
         } 
