@@ -1,6 +1,6 @@
 package server;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Form {
 

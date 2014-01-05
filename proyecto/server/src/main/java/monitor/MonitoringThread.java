@@ -19,36 +19,31 @@ import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
 import pdf.PDF;
+import server.CompleteForm;
 import server.Facade;
+import server.Form;
 import server.HTMLPage;
 
 public class MonitoringThread implements Runnable{
 
-	private int id;
-	private String url;
-	private Date startDate;
-	private int frequency;
-	private Date endDate;
+	CompleteForm form;
+	int id = 1;
 	
 	public MonitoringThread(){
 		
 	}
 	
-	public MonitoringThread(int id, String url, int frequency, Date endDate) throws IOException, NoSuchAlgorithmException{
-		this.id = id;
-		this.url = url;
-		this.startDate = new Date(System.currentTimeMillis());
-		this.frequency = frequency;
-		this.endDate = endDate;		
+	public MonitoringThread(CompleteForm form) throws IOException, NoSuchAlgorithmException{
+		this.form = form;	
 		
 		// Get the HTML of the page
-		HTMLPage html = new HTMLPage(url);
+		HTMLPage html = new HTMLPage(form.getRealUrl());
 	    
 	    // Hash
 		String hash = html.getHash();
 		
 		// Write into BD
-		new Facade().insert(id, url, frequency, endDate, hash);
+		new Facade().insert(1, form.getRealUrl(), form.getFreq(), form.getFechaFin(), hash);
 		
 	}
 	
@@ -62,16 +57,16 @@ public class MonitoringThread implements Runnable{
 	        JobDetail job = newJob(MonitoringJob.class)
 	            .withIdentity("job"+id, "monitoring")
 	            .usingJobData("id", id)
-	            .usingJobData("url", url)
+	            .usingJobData("url", form.getRealUrl())
 	            .build();
 	        
 	        // Trigger the job to run on the next round minute
 	        Trigger trigger = newTrigger()
 	            .withIdentity("trigger"+id, "monitoring")
 	            .withSchedule(simpleSchedule()
-	            .withIntervalInSeconds(frequency)
+	            .withIntervalInSeconds(form.getFreq())
 	            .repeatForever())
-	            .endAt(endDate)
+	            .endAt(form.getFechaFin())
 	            .build();
 	        
 	        // Tell quartz to schedule the job using our trigger
@@ -82,7 +77,7 @@ public class MonitoringThread implements Runnable{
 	        sched.start();
 	        
 	        try {
-				Thread.sleep(endDate.getTime()-startDate.getTime()+10000);
+				Thread.sleep(form.getFechaFin().getTime()-form.getStartDate().getTime()+10000);
 			} 
 	        catch (InterruptedException e) {
 				e.printStackTrace();
@@ -91,12 +86,12 @@ public class MonitoringThread implements Runnable{
 	        ArrayList<String> changes = new Facade().getChanges(id);
 	        int numberOfChanges = getNumberOfCHanges(changes);
 	        String pdfName = "informe_"+id+".pdf";
-	        PDF pdf = new PDF(pdfName, url, startDate.toString(), endDate.toString(), Integer.toString(frequency), 
-	        		"cjperez8086@gmail.com", Integer.toString(numberOfChanges), changes);
+	        PDF pdf = new PDF(pdfName, form.getRealUrl(), form.getStartDate().toString(), form.getFechaFin().toString(), Integer.toString(form.getFreq()), 
+	        		form.getEmail(), Integer.toString(numberOfChanges), changes);
 	        pdf.generatePDF();
 	        
 	        // Send mail
-	        Mail mail = new Mail(url, "cjperez8086@gmail.com", pdfName);
+	        Mail mail = new Mail(form.getRealUrl(), form.getEmail(), pdfName);
 	        mail.sendMail();
 	        // shut down the scheduler
 	        sched.shutdown(true);
@@ -119,9 +114,12 @@ public class MonitoringThread implements Runnable{
 	    }
 		return count;
 	}
+	
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
 		Date s = new Date(System.currentTimeMillis()+305000);
-		MonitoringThread m = new  MonitoringThread(9, "http://localhost:9999/sslist/login.html", 60, s);	
+		MonitoringThread m = new  MonitoringThread(new CompleteForm(
+				new Form("a", 60, s, "cjperez8086@gmail.com"),
+				"http://localhost:9999/sslist/login.html"));
 		Thread r = new Thread(m); 
 		r.start();
 	}
