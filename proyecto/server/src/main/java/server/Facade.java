@@ -22,8 +22,38 @@ public class Facade {
             e.printStackTrace(System.err);
         } 
         finally{
-		connection.close();
+        	connection.close();
         }        
+	}
+	
+	public String getRealURL(String url) throws SQLException{
+		Connection connection = null;
+		String realURL = null;
+		try{
+		   connection = ConnectionGlobalManager.getConnection();
+		   String queryString = "SELECT URL_DST FROM URLs WHERE URL_ACOR=?";
+		   
+		   PreparedStatement preparedStatement = 
+	               connection.prepareStatement(queryString);
+		   
+		   preparedStatement.setString(1,url);
+		   
+		   ResultSet resultSet = preparedStatement.executeQuery();
+		   
+		   
+		   if(resultSet.next()==true){
+	   	  		realURL = resultSet.getString("URL_DST");
+	       }
+		        
+		   connection.close();
+        } 
+        catch (Exception e) {
+            e.printStackTrace(System.err);
+        } 
+        finally{
+        	connection.close();
+        }
+        return realURL;
 	}
 	
 	
@@ -193,5 +223,9 @@ public class Facade {
 		return content; //Devuelve los cambios
 	}
 	
+	public static void main(String[] args) throws SQLException{
+		Facade f = new Facade();
+		System.out.println(f.getRealURL("FvQZJj"));
+	}
 	
 }

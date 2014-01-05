@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConnectionGlobalManager {
 	private final static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-	private final static String DRIVER_URL = "jdbc:mysql://localhost:3306/iweblocal";
-	private final static String USER = "root";
-	private final static String PASSWORD = "";
+	private final static String DRIVER_URL = "jdbc:mysql://ec2-176-34-253-124.eu-west-1.compute.amazonaws.com:3306/ingenieriaweb";
+	private final static String USER = "iwebunizar";
+	private final static String PASSWORD = "zaragoza2013";
 	
 	static {
 		
