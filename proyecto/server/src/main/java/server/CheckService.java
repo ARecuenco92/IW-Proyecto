@@ -5,8 +5,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
-
 @Path("form")
 public class CheckService {
 	

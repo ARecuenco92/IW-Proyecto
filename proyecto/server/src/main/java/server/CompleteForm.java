@@ -1,7 +1,5 @@
 package server;
 
-import java.util.Date;
-
 public class CompleteForm extends Form{
 
 	private String realUrl;

@@ -22,7 +22,7 @@ public class DatosDAO {
 		}
 		if(realUrl!=null){
 			CompleteForm CForm = new CompleteForm(form, realUrl);
-			
+			System.out.println(CForm);
 		}
 		
 
