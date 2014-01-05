@@ -9,23 +9,14 @@ public class DatosDAO {
 		Form form = null;
 		try {
 			form = gson.fromJson(json, Form.class);
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-		//Hacer algo
-		Facade f = new Facade();
-		String realUrl = null;
-		try{
-			realUrl = f.getRealURL(form.getShortUrl());
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-		if(realUrl!=null){
+			Facade f = new Facade();
+			String realUrl = f.getRealURL(form.getShortUrl());
 			CompleteForm CForm = new CompleteForm(form, realUrl);
+			//Llamar al proceso de alvaro
 			System.out.println(CForm);
-		}
-		
-
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}		
 	}
 	
 }
