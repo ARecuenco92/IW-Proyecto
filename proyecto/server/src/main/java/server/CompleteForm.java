@@ -13,8 +13,12 @@ public class CompleteForm extends Form{
         return realUrl;
 	}
 	
-	public void setShortUrl(String realUrl) {
+	public void setRealUrl(String realUrl) {
 	    this.realUrl = realUrl;
+	}
+	
+	public String toString(){
+		return super.toString()+" URL Real: "+realUrl;
 	}
 
 }
