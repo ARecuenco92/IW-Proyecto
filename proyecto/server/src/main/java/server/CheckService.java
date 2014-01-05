@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
-@Path("sayHello")
+@Path("form")
 public class CheckService {
 	
 	@POST
@@ -21,6 +21,8 @@ public class CheckService {
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+		
+		//Hacer algo
 		System.out.println(form);
 		return form.toString();
 	}
