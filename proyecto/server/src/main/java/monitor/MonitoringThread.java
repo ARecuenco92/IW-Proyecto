@@ -6,7 +6,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import mail.Mail;
@@ -21,7 +20,6 @@ import org.quartz.impl.StdSchedulerFactory;
 import pdf.PDF;
 import server.CompleteForm;
 import server.Facade;
-import server.Form;
 import server.HTMLPage;
 
 public class MonitoringThread implements Runnable{
@@ -43,7 +41,7 @@ public class MonitoringThread implements Runnable{
 		String hash = html.getHash();
 		
 		// Write into BD
-		id=new Facade().insert(1, form.getRealUrl(), form.getFreq(), form.getFechaFin(), hash, form.getEmail());
+		id=new Facade().insert(form.getRealUrl(), form.getFreq(), form.getFechaFin(), hash, form.getEmail());
 		
 	}
 	
@@ -64,7 +62,7 @@ public class MonitoringThread implements Runnable{
 	        Trigger trigger = newTrigger()
 	            .withIdentity("trigger"+id, "monitoring")
 	            .withSchedule(simpleSchedule()
-	            .withIntervalInSeconds(form.getFreq())
+	            .withIntervalInMinutes(form.getFreq())
 	            .repeatForever())
 	            .endAt(form.getFechaFin())
 	            .build();
@@ -113,14 +111,5 @@ public class MonitoringThread implements Runnable{
 					
 	    }
 		return count;
-	}
-	
-	public static void main(String[] args) throws NoSuchAlgorithmException, IOException{
-		Date s = new Date(System.currentTimeMillis()+305000);
-		MonitoringThread m = new  MonitoringThread(new CompleteForm(
-				new Form("a", 60, s, "cjperez8086@gmail.com"),
-				"http://localhost:9999/sslist/login.html"));
-		Thread r = new Thread(m); 
-		r.start();
 	}
 }

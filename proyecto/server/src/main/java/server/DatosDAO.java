@@ -1,5 +1,7 @@
 package server;
 
+import monitor.MonitoringThread;
+
 import com.google.gson.Gson;
 
 public class DatosDAO {
@@ -12,8 +14,12 @@ public class DatosDAO {
 			Facade f = new Facade();
 			String realUrl = f.getRealURL(form.getShortUrl());
 			CompleteForm CForm = new CompleteForm(form, realUrl);
-			//Llamar al proceso de alvaro
 			System.out.println(CForm);
+			
+			//Start thread 
+			MonitoringThread m = new  MonitoringThread(CForm);
+			Thread r = new Thread(m); 
+			r.start();
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}		

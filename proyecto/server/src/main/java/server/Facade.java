@@ -70,23 +70,22 @@ public class Facade {
 	}
 	
 	
-	public int insert(int id, String url, int frequency, Date endDate, String hash, String email){
+	public int insert(String url, int frequency, Date endDate, String hash, String email){
 		Connection connection = null;
         try{
 		   connection = ConnectionManager.getConnection();
            /* Create "preparedStatement". */
            String queryString = "INSERT INTO datos " +
-               "(idDatos, pagina, frecuencia, fechaFin, email, hash) VALUES (?, ?, ?, ?,?,?)";                    
+               "(pagina, frecuencia, fechaFin, email, hash) VALUES (?, ?, ?,?,?)";                    
            PreparedStatement preparedStatement = 
                connection.prepareStatement(queryString);
            
            /* Fill "preparedStatement". */    
-           preparedStatement.setInt(1, id);
-           preparedStatement.setString(2,url);
-           preparedStatement.setInt(3, frequency);
-           preparedStatement.setDate(4, endDate);
-           preparedStatement.setString(5, "email@email.com");
-           preparedStatement.setString(6, hash);
+           preparedStatement.setString(1,url);
+           preparedStatement.setInt(2, frequency);
+           preparedStatement.setDate(3, endDate);
+           preparedStatement.setString(4, "email@email.com");
+           preparedStatement.setString(5, hash);
 
            /* Execute query. */                    
            int insertedRows = preparedStatement.executeUpdate();
