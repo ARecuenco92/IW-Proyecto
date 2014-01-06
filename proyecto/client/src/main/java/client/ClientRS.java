@@ -37,8 +37,8 @@ public class ClientRS {
 	}
 	
 	public static void main(String[] args){
-		new ClientRS().sendData(new Form("www.algo.com", 10, new Date(), "626125@unizar.es"), 
-				"http://localhost:9090/helloWorld/sayHello/");
+		System.out.println(new ClientRS().sendData(new Form("www.algo.com", 10, new Date(), "626125@unizar.es"), 
+				"http://server2.iwebunizar.cloudbees.net/rest/sayHello"));
 	}
 
 }

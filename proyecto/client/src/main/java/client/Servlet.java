@@ -30,7 +30,7 @@ public class Servlet extends HttpServlet {
 		}
 		Form form = new Form(url, Integer.parseInt(freq), d, email);
 		ClientRS client = new ClientRS();
-		String result = client.sendData(form, "http://localhost:9090/helloWorld/sayHello/");
+		String result = client.sendData(form, "http://server2.iwebunizar.cloudbees.net/rest/sayHello");
 		System.out.println(result);
 	}
 	
