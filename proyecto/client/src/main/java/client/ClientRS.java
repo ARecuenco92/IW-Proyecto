@@ -37,8 +37,8 @@ public class ClientRS {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(new ClientRS().sendData(new Form("www.algo.com", 10, new Timestamp(System.currentTimeMillis()), "626125@unizar.es"), 
-				"http://server2.iwebunizar.cloudbees.net/rest/sayHello"));
+		System.out.println(new ClientRS().sendData(new Form("FvQZJj", 2, new Timestamp(System.currentTimeMillis()+300000), "626125@unizar.es"), 
+				"http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor"));
 	}
 
 }

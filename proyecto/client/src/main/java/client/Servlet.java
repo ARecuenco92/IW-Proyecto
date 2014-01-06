@@ -34,7 +34,7 @@ public class Servlet extends HttpServlet {
 		}
 		Form form = new Form(url, Integer.parseInt(freq), dateTime, email);
 		ClientRS client = new ClientRS();
-		String result = client.sendData(form, "http://server2.iwebunizar.cloudbees.net/rest/sayHello");
+		String result = client.sendData(form, "http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor");
 		System.out.println(result);
 	}
 	

@@ -18,7 +18,7 @@ public class HTMLPage {
 	}
 	
 	private String getHTML(String url) throws IOException{
-		URL page = new URL(url);
+		URL page = new URL("http://"+url);
 		BufferedReader in = new BufferedReader(new InputStreamReader(page.openStream()));
 		String html="";
 	    String inputLine;
