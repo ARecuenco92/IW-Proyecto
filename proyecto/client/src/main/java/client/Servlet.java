@@ -21,11 +21,13 @@ public class Servlet extends HttpServlet {
 		String freq = request.getParameter("freq");
 		String date = request.getParameter("date");
 		String email = request.getParameter("email");
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String hour = request.getParameter("hour");
+		String dateHour = date+"-"+hour;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
 		Date d = null;
 		Timestamp dateTime = null;
 		try {
-			d = df.parse(date);
+			d = df.parse(dateHour);
 			dateTime = new Timestamp(d.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
