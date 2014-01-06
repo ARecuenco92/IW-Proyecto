@@ -16,7 +16,7 @@ public class ChangeDAO {
             
             /* Fill "preparedStatement". */    
             preparedStatement.setInt(1, change.getIdData());
-            preparedStatement.setDate(2, change.getDate());
+            preparedStatement.setTimestamp(2, change.getDate());
             preparedStatement.setBoolean(3, change.getChange());
 
             /* Execute query. */                    

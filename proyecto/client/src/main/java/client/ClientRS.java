@@ -1,6 +1,6 @@
 package client;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -37,7 +37,7 @@ public class ClientRS {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(new ClientRS().sendData(new Form("www.algo.com", 10, new Date(), "626125@unizar.es"), 
+		System.out.println(new ClientRS().sendData(new Form("www.algo.com", 10, new Timestamp(System.currentTimeMillis()), "626125@unizar.es"), 
 				"http://server2.iwebunizar.cloudbees.net/rest/sayHello"));
 	}
 

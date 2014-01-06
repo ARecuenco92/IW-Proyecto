@@ -1,15 +1,15 @@
 package server;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Form {
 
 	private String shortUrl;
 	private int freq;
-	private Date fechaFin;
+	private Timestamp fechaFin;
 	private String email;
     
-    public Form(String shortUrl, int freq, Date fechaFin, String email){
+    public Form(String shortUrl, int freq, Timestamp fechaFin, String email){
     	this.shortUrl = shortUrl;
     	this.freq= freq;
     	this.fechaFin = fechaFin;
@@ -40,11 +40,11 @@ public class Form {
 	    this.email = email;
 	}
 	
-	public Date getFechaFin() {
+	public Timestamp getFechaFin() {
 		return fechaFin;
 	}
 	
-	public void setFechafin(Date fechaFin) {
+	public void setFechafin(Timestamp fechaFin) {
 	    this.fechaFin = fechaFin;
 	}
 	

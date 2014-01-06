@@ -1,7 +1,7 @@
 package server;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,7 +70,7 @@ public class Facade {
 	}
 	
 	
-	public int insert(String url, int frequency, Date endDate, String hash, String email){
+	public int insert(String url, int frequency, Timestamp endDate, String hash, String email){
 		Connection connection = null;
         try{
 		   connection = ConnectionManager.getConnection();
@@ -83,7 +83,7 @@ public class Facade {
            /* Fill "preparedStatement". */    
            preparedStatement.setString(1,url);
            preparedStatement.setInt(2, frequency);
-           preparedStatement.setDate(3, endDate);
+           preparedStatement.setTimestamp(3, endDate);
            preparedStatement.setString(4, "email@email.com");
            preparedStatement.setString(5, hash);
 
@@ -215,7 +215,7 @@ public class Facade {
            ResultSet rs = preparedStatement.executeQuery();
            while (rs.next()) {
         	   //Se cogen los parámetros
-           	Date fecha = rs.getDate("FechaHora");
+        	Timestamp fecha = rs.getTimestamp("FechaHora");
            	int cambio = rs.getInt("cambio");	
            	String cambioStr = "Si";
            	if(cambio==0){

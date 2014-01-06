@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.quartz.Job;
 import org.quartz.JobDataMap;
@@ -33,7 +33,7 @@ public class MonitoringJob implements Job{
 			String hash = html.getHash();
 		    
 		    // Compare it with the last version
-			Date date = new Date(System.currentTimeMillis());
+			Timestamp date = new Timestamp(System.currentTimeMillis());
 			Facade facade = new Facade();
 			String last = facade.getHash(id);
 			boolean change = false;

@@ -1,15 +1,15 @@
 package server;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ChangeVO {
 	
 	private int idData;
 	private int idChange;
-	private Date date;
+	private Timestamp date;
 	private boolean change;
 	
-	public ChangeVO(int idData, int idChange, Date date, boolean change){
+	public ChangeVO(int idData, int idChange, Timestamp date, boolean change){
 		this.idData = idData;
 		this.idChange = idChange;
 		this.date = date;
@@ -24,7 +24,7 @@ public class ChangeVO {
 		return idChange;
 	}
 	
-	public Date getDate(){
+	public Timestamp getDate(){
 		return date;
 	}
 	

@@ -1,16 +1,16 @@
 package server;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class CompleteForm extends Form{
 
 	private String realUrl;
-	private Date startDate;
+	private Timestamp startDate;
 	
 	public CompleteForm(Form form, String realUrl) {
 		super(form.getShortUrl(), form.getFreq(), form.getFechaFin(), form.getEmail());
 		this.realUrl = realUrl;
-		this.startDate = new Date(System.currentTimeMillis());
+		this.startDate = new Timestamp(System.currentTimeMillis());
 	}
 	
     public String getRealUrl() {
@@ -21,11 +21,11 @@ public class CompleteForm extends Form{
 	    this.realUrl = realUrl;
 	}
 	
-	public Date getStartDate() {
+	public Timestamp getStartDate() {
 		return startDate;
 	}
 	
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Timestamp startDate) {
 	    this.startDate = startDate;
 	}
 	

@@ -1,9 +1,8 @@
 package client;
 
-import java.text.DateFormat;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +21,9 @@ public class Servlet extends HttpServlet {
 		String date = request.getParameter("date");
 		String email = request.getParameter("email");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Date d = null;
+		Timestamp d = null;
 		try {
-			d = df.parse(date);
+			d = (Timestamp) df.parse(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
