@@ -3,6 +3,7 @@ package client;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,13 +22,15 @@ public class Servlet extends HttpServlet {
 		String date = request.getParameter("date");
 		String email = request.getParameter("email");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Timestamp d = null;
+		Date d = null;
+		Timestamp dateTime = null;
 		try {
-			d = (Timestamp) df.parse(date);
+			d = df.parse(date);
+			dateTime = new Timestamp(d.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Form form = new Form(url, Integer.parseInt(freq), d, email);
+		Form form = new Form(url, Integer.parseInt(freq), dateTime, email);
 		ClientRS client = new ClientRS();
 		String result = client.sendData(form, "http://server2.iwebunizar.cloudbees.net/rest/sayHello");
 		System.out.println(result);
