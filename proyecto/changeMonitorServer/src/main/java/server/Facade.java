@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import database.ConnectionGlobalManager;
 import database.ConnectionManager;
@@ -48,7 +49,6 @@ public class Facade {
 		   
 		   ResultSet resultSet = preparedStatement.executeQuery();
 		   
-		   
 		   if(resultSet.next()==true){
 	   	  		realURL = resultSet.getString("URL_DST");
 	       }
@@ -76,7 +76,7 @@ public class Facade {
 		   connection = ConnectionManager.getConnection();
            /* Create "preparedStatement". */
            String queryString = "INSERT INTO datos " +
-               "(pagina, frecuencia, fechaFin, email, hash) VALUES (?, ?, ?,?,?)";                    
+               "(pagina, frecuencia, fechaFin, email, hash) VALUES (?,?,?,?,?)";                    
            PreparedStatement preparedStatement = 
                connection.prepareStatement(queryString);
            
@@ -84,7 +84,7 @@ public class Facade {
            preparedStatement.setString(1,url);
            preparedStatement.setInt(2, frequency);
            preparedStatement.setTimestamp(3, endDate);
-           preparedStatement.setString(4, "email@email.com");
+           preparedStatement.setString(4, email);
            preparedStatement.setString(5, hash);
 
            /* Execute query. */                    
@@ -251,7 +251,8 @@ public class Facade {
 	
 	public static void main(String[] args) throws SQLException{
 		Facade f = new Facade();
-		System.out.println(f.getRealURL("FvQZJj"));
+		int id = f.insert("url", 5, new Timestamp(new Date().getTime()), "hash", "email");
+		System.out.println(id+".- "+f.getHash(id));
 	}
 	
 }
