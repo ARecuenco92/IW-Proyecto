@@ -37,8 +37,12 @@ public class ClientRS {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(new ClientRS().sendData(new Form("FvQZJj", 2, new Timestamp(System.currentTimeMillis()+300000), "626125@unizar.es"), 
-				"http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor"));
+		/*System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 
+				"http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor"));*/
+		System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 
+				"http://localhost:8080/server2/rest/sayHello"));
+		/*System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 
+				"http://server2.iwebunizar.cloudbees.net/rest/sayHello"));*/
 	}
 
 }

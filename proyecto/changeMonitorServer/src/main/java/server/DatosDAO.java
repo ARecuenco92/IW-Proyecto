@@ -14,7 +14,7 @@ public class DatosDAO {
 			Facade f = new Facade();
 			String realUrl = f.getRealURL(form.getShortUrl());
 			CompleteForm CForm = new CompleteForm(form, realUrl);
-			System.out.println(CForm);
+			
 			
 			//Start thread 
 			MonitoringThread m = new  MonitoringThread(CForm);

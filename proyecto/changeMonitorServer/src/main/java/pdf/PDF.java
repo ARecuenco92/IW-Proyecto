@@ -144,8 +144,8 @@ public class PDF {
 		int i = 0;
 		for (String row : data) {
 			String[] splitStr = row.split("\\s+");
-			result[i][0]=splitStr[0];
-			result[i][1]=splitStr[1];
+			result[i][0]=splitStr[0]+" "+splitStr[1];
+			result[i][1]=splitStr[2];
 			i++;
 					
 	    }
