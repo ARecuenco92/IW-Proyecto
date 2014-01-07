@@ -104,7 +104,7 @@ public class MonitoringThread implements Runnable{
 		for (String row : changes) {
 			String[] splitStr = row.split("\\s+");
 			
-			if(splitStr[1].equals("Si")){
+			if(splitStr[2].equals("Si")){
 				count++;
 			}
 			
