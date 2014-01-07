@@ -11,7 +11,6 @@ public class CheckService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public String getMessage(String json) {
-		new DatosDAO().startMonitor(json);
-		return "OK";
+		return new DatosDAO().startMonitor(json);
 	}
 }

@@ -46,6 +46,7 @@ public class MonitoringJob implements Job{
 			// Write Change into BD
 			ChangeVO changeVO = new ChangeVO(id, -1, date, change);
 			facade.insertChange(changeVO);
+			System.out.println("Cambio: "+id+" - "+date+" - "+change);
 		} 
 		catch (MalformedURLException e) {
 				e.printStackTrace();

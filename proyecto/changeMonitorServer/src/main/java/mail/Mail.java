@@ -2,7 +2,6 @@ package mail;
 
 import java.util.Properties;
 
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -68,8 +67,8 @@ public class Mail {
 	        // Create the message part
 	        BodyPart messageBodyPart2 = new MimeBodyPart();
 	        // Fill the message
-	        messageBodyPart2.setText("Le enviamos el informe de la pagina"+ pageName+", adjuntado en un documento pdf.");
-	        messageBodyPart2.setContent("Le enviamos el informe de la pagina"+ pageName+", adjuntado en un documento pdf.", "text/html");
+	        messageBodyPart2.setText("Le enviamos el informe de la pagina "+ pageName+", adjuntado en un documento pdf.");
+	        messageBodyPart2.setContent("Le enviamos el informe de la pagina "+ pageName+", adjuntado en un documento pdf.", "text/html");
 	        multipart.addBodyPart(messageBodyPart2); //se añade
 	        
 	        
@@ -86,11 +85,11 @@ public class Mail {
 
 	        message.setContent(multipart);
 
-	        System.out.println("Sending");
+	        System.out.println("Sending1");
 
 	        Transport.send(message);
 
-	        System.out.println("Done");
+	        System.out.println("Done1");
 
 	    } catch (MessagingException e) {
 	        e.printStackTrace();

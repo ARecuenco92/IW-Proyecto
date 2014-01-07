@@ -43,6 +43,7 @@ public class MonitoringThread implements Runnable{
 		// Write into BD
 		id=new Facade().insert(form.getRealUrl(), form.getFreq(), form.getFechaFin(), hash, form.getEmail());
 		
+		System.out.println("Empezando la monitorizacion: "+id+" - "+form.getRealUrl());
 	}
 	
 	public void run() {
@@ -79,7 +80,9 @@ public class MonitoringThread implements Runnable{
 			} 
 	        catch (InterruptedException e) {
 				e.printStackTrace();
-			} 
+			}
+	        
+	        System.out.println("Ha finalizado la monitorización");
 	        // Generate PDF
 	        ArrayList<String> changes = new Facade().getChanges(id);
 	        int numberOfChanges = getNumberOfCHanges(changes);
@@ -88,11 +91,15 @@ public class MonitoringThread implements Runnable{
 	        		form.getEmail(), Integer.toString(numberOfChanges), changes);
 	        pdf.generatePDF();
 	        
+	        System.out.println("PDF generado, se va a enviar el mail");
+	        
 	        // Send mail
 	        Mail mail = new Mail(form.getRealUrl(), form.getEmail(), pdfName);
 	        mail.sendMail();
 	        // shut down the scheduler
 	        sched.shutdown(true);
+	        
+	        System.out.println("Mail enviado");
 		} 
         catch (SchedulerException e) {
 			e.printStackTrace();
@@ -107,7 +114,6 @@ public class MonitoringThread implements Runnable{
 			if(splitStr[2].equals("Si")){
 				count++;
 			}
-			
 					
 	    }
 		return count;
