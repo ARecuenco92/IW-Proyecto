@@ -1,5 +1,6 @@
 package client;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,18 +8,20 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/hello" })
-public class Servlet extends HttpServlet {
+public class Servlet extends HttpServlet  {
 
 	private static final long serialVersionUID = -8677908170932276120L;
 
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response){
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		boolean paramOK = true; //Para saber si los parámetros están bien
 		String url = request.getParameter("url");
 		String freq = request.getParameter("freq");
@@ -69,6 +72,15 @@ public class Servlet extends HttpServlet {
 			ClientRS client = new ClientRS();
 			String result = client.sendData(form, "http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor");
 			System.out.println(result);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("respuesta","Monitorización iniciada correctamente");
+			dispatcher.forward(request,response);
+		}
+		else { //error
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+			dispatcher.forward(request,response);
 		}
 	}
 	
