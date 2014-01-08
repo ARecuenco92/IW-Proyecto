@@ -46,7 +46,7 @@ public class Servlet extends HttpServlet {
 		}
 		else{
 			//Check frequency
-			if(Integer.parseInt(freq)<=0){
+			if(Integer.parseInt(freq)<5){ //min frequency 5 min
 				System.err.println("Error: frecuencia incorrecta");
 				paramOK=false;
 			}
