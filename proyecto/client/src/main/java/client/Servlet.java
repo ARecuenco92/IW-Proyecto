@@ -104,7 +104,7 @@ public class Servlet extends HttpServlet  {
 						dispatcher.forward(request,response);
 					}else{
 						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-						request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+						request.setAttribute("respuesta","Error: "+result);
 						dispatcher.forward(request,response);
 					}
 				}else{
