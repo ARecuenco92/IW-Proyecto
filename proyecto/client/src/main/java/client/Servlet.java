@@ -77,13 +77,7 @@ public class Servlet extends HttpServlet  {
 		if(hour!=null && !hour.equals("") && (Integer.parseInt(hour)>24 || Integer.parseInt(hour)<0)){
 			System.err.println("Error: hora incorrecta");
 			paramOK=false;
-		}
-		//Check date
-		if(date!=null && !date.equals("")){
-			System.err.println("Error: fecha incorrecta");
-			paramOK=false;
-		}
-		
+		}		
 		if(paramOK){
 			try{
 				Timestamp dateTime = null;
@@ -100,8 +94,8 @@ public class Servlet extends HttpServlet  {
 					dateTime = new Timestamp(d.getTime());
 				}
 				Timestamp now = new Timestamp(new Date().getTime());
-				if(now.getTime()<dateTime.getTime() && now.getTime()+month>dateTime.getTime()){
-					System.err.println("Error: el periodo de monitorización es superior a un mes");
+				if(now.getTime()>dateTime.getTime() || now.getTime()+month<dateTime.getTime()){
+					System.err.println("Error: fecha incorrecta");
 					paramOK=false;
 				}
 				
@@ -133,7 +127,7 @@ public class Servlet extends HttpServlet  {
 		}
 		else { //error
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("respuesta","Ha habido un error introduciendo los parÃ¡metros, vuelva a intentarlo.");
+			request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
 			dispatcher.forward(request,response);
 		}
 	}
