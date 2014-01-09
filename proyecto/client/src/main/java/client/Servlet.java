@@ -100,7 +100,7 @@ public class Servlet extends HttpServlet  {
 					String result = client.sendData(form, "http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor");
 					if(result.startsWith("Peticion de monitorizacion para la pagina")){					
 						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-						request.setAttribute("respuesta","Monitorización iniciada correctamente");
+						request.setAttribute("respuesta","Monitorizacion iniciada correctamente");
 						dispatcher.forward(request,response);
 					}else{
 						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
