@@ -57,6 +57,7 @@ public class MonitoringThread implements Runnable{
 	            .withIdentity("job"+id, "monitoring")
 	            .usingJobData("id", id)
 	            .usingJobData("url", form.getRealUrl())
+	            .usingJobData("zone", form.getZone())
 	            .build();
 	        
 	        // Trigger the job to run on the next round minute

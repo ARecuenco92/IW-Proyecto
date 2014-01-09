@@ -23,6 +23,7 @@ public class MonitoringJob implements Job{
 		JobDataMap data = context.getJobDetail().getJobDataMap();
 		int id = data.getInt("id");
 		String url = data.getString("url");
+		int zone = data.getInt("zone");
 		
 		try {
 			
@@ -32,8 +33,9 @@ public class MonitoringJob implements Job{
 		    // Hash
 			String hash = html.getHash();
 		    
+			long hour = 3600000;
 		    // Compare it with the last version
-			Timestamp date = new Timestamp(System.currentTimeMillis());
+			Timestamp date = new Timestamp(System.currentTimeMillis()+zone*hour);
 			Facade facade = new Facade();
 			String last = facade.getHash(id);
 			boolean change = false;

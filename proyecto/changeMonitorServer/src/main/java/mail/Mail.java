@@ -59,12 +59,12 @@ public class Mail {
 
 	    try {
 	    	String subject, text, content;
-	    	if(pdfName==null){
-	    		subject = "Comienzo de la monitorización - IW7I";
+	    	if(pdfName!=null){
+	    		subject = "Informe de monitorización - IW7I";
 	    		text = "Le enviamos el informe de la pagina "+pageName+", adjuntado en un documento pdf.";
 	    		content = "Le enviamos el informe de la pagina "+pageName+", adjuntado en un documento pdf.";
 	    	}else{
-	    		subject = "Informe de monitorización - IW7I";
+	    		subject = "Comienzo de la monitorización - IW7I";
 	    		text = "Petición de monitorización para la página "+pageName+" recibida correctamente.";
 	    		content = "Petición de monitorización para la página "+pageName+" recibida correctamente."
 		        		+ " Se le enviará un mensaje con el informe una vez finalizado el plazo seleccionado.";
