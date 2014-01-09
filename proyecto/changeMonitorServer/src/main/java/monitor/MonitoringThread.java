@@ -48,7 +48,9 @@ public class MonitoringThread implements Runnable{
 	
 	public void run() {
         try {
-			 // First we must get a reference to a scheduler
+			
+        	Mail mail = new Mail(form.getRealUrl(), form.getEmail()); 
+        	// First we must get a reference to a scheduler
 	        SchedulerFactory sf = new StdSchedulerFactory();
 	        Scheduler sched = sf.getScheduler();
 	
@@ -95,7 +97,7 @@ public class MonitoringThread implements Runnable{
 	        System.out.println("PDF generado, se va a enviar el mail");
 	        
 	        // Send mail
-	        Mail mail = new Mail(form.getRealUrl(), form.getEmail(), pdfName);
+	        mail = new Mail(form.getRealUrl(), form.getEmail(), pdfName);
 	        mail.sendMail();
 	        // shut down the scheduler
 	        //sched.shutdown(true);

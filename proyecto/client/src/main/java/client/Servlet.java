@@ -31,7 +31,6 @@ public class Servlet extends HttpServlet  {
 		String dateDelay = request.getParameter("dateDelay");
 		String dateHour = date+"-"+hour;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
-		System.out.println(url+" "+freq);
 		Date d = null;
 		Timestamp dateTime = null;
 		try {
@@ -55,6 +54,11 @@ public class Servlet extends HttpServlet  {
 				System.err.println("Error: frecuencia incorrecta");
 				paramOK=false;
 			}
+			int zone = Integer.parseInt(dateDelay);
+			if(zone%60!=0 || zone<-720 || zone>720){
+				System.err.println("Error: zona incorrecta");
+				paramOK=false;
+			}
 			//Check email
 			 String EMAIL_PATTERN = 
 					"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -70,7 +74,6 @@ public class Servlet extends HttpServlet  {
 		//if all params all OK then the data is sent.
 		if(paramOK){
 		
-			
 			Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
 			System.out.println("Se va a pedir"+form);
 			ClientRS client = new ClientRS();

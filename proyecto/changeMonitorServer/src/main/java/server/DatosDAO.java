@@ -1,6 +1,5 @@
 package server;
 
-import mail.Mail;
 import monitor.MonitoringThread;
 
 import com.google.gson.Gson;
@@ -25,8 +24,7 @@ public class DatosDAO {
 			r.start();
 			
 			//Envio del Mail inicial
-			Mail mail = new Mail(CForm.getRealUrl(), CForm.getEmail());
-			return mail.sendMail();
+			return "Peticion de monitorizacion para la pagina "+realUrl+" recibida.";
 		}catch(Exception ex){
 			ex.printStackTrace();
 			return ex.getMessage();
