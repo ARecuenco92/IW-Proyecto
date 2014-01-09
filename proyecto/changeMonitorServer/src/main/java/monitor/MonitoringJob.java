@@ -35,7 +35,7 @@ public class MonitoringJob implements Job{
 		    
 			long hour = 3600000;
 		    // Compare it with the last version
-			Timestamp date = new Timestamp(System.currentTimeMillis()+zone*hour);
+			Timestamp date = new Timestamp(System.currentTimeMillis()-zone*hour);
 			Facade facade = new Facade();
 			String last = facade.getHash(id);
 			boolean change = false;

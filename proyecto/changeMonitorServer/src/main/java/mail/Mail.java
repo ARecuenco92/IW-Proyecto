@@ -102,11 +102,11 @@ public class Mail {
 
 	        message.setContent(multipart);
 
-	        System.out.println("Sending "+pdfName==null);
+	        System.out.println("Sending");
 
 	        Transport.send(message);
 
-	        System.out.println("Done "+pdfName==null);
+	        System.out.println("Done");
 	        
 	        return "MENSAJE ENVIADO SIN ERRORES";
 
