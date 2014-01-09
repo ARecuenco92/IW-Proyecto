@@ -78,7 +78,7 @@ public class MonitoringThread implements Runnable{
 	        long hour=3600000;
 	        
 	        try {
-				Thread.sleep(form.getFechaFin().getTime()-form.getZone()*hour-form.getStartDate().getTime()+10000);
+				Thread.sleep(form.getFechaFin().getTime()+form.getZone()*hour-form.getStartDate().getTime()+10000);
 			} 
 	        catch (InterruptedException e) {
 				e.printStackTrace();
