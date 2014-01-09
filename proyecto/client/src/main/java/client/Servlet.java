@@ -36,14 +36,14 @@ public class Servlet extends HttpServlet  {
 			paramOK=false;
 		}
 		//Check url
-		String URL_PATTERN = "^http://7iw.es/*|7iw.es/*|www.7iw.es/*|http://www.7iw.es/*$";
+		String URL_PATTERN = "^http://7iw.es/.*|7iw.es/.*|www.7iw.es/.*|http://www.7iw.es/.*$";
 		Pattern pattern1 = Pattern.compile(URL_PATTERN);
 		Matcher matcher1 = pattern1.matcher(url);
 		if(!matcher1.matches()){
 			System.err.println("Error: url incorrecta");
 			paramOK=false;
 		}else{
-			url = url.substring(url.indexOf("7iw.es/")+6);
+			url = url.substring(url.indexOf("7iw.es/")+7);
 			System.out.println(url);
 		}
 		//Check frequency
