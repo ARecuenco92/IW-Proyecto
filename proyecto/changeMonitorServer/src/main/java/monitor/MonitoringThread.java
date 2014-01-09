@@ -22,6 +22,9 @@ import server.CompleteForm;
 import server.Facade;
 import server.HTMLPage;
 
+/**
+ * Clase que gestiona una petición de monitorización y envía los mail.
+ */
 public class MonitoringThread implements Runnable{
 
 	CompleteForm form;
@@ -46,11 +49,17 @@ public class MonitoringThread implements Runnable{
 		System.out.println("Empezando la monitorizacion: "+id+" - "+form.getRealUrl());
 	}
 	
+	/**
+	 * Envia un mail informativo de que se ha procesado la peticion, luego crea un proceso 
+	 * que se encargara de monitorizar la pagina web seleccionada. Una vez terminado el
+	 * tiempo establecido, envia un mail con el pdf resultado de la monitorizacion
+	 */
 	public void run() {
         try {
-			
+			//Mail informativo
         	Mail mail = new Mail(form.getRealUrl(), form.getEmail()); 
         	mail.sendMail();
+        	
         	// First we must get a reference to a scheduler
 	        SchedulerFactory sf = new StdSchedulerFactory();
 	        Scheduler sched = sf.getScheduler();
@@ -79,6 +88,7 @@ public class MonitoringThread implements Runnable{
 	        // scheduler has been started)
 	        sched.start();
 	        
+	        //Duerme hasta que pase el tiempo requerido
 	        try {
 				Thread.sleep(form.getFechaFin().getTime()-form.getStartDate().getTime()+10000);
 			} 
@@ -87,7 +97,7 @@ public class MonitoringThread implements Runnable{
 			}
 	        
 	        System.out.println("Ha finalizado la monitorización");
-	        // Generate PDF
+	        // Genera el PDF con los resultados
 	        ArrayList<String> changes = new Facade().getChanges(id);
 	        int numberOfChanges = getNumberOfCHanges(changes);
 	        String pdfName = "informe_"+id+".pdf";
@@ -100,8 +110,6 @@ public class MonitoringThread implements Runnable{
 	        // Send mail
 	        mail = new Mail(form.getRealUrl(), form.getEmail(), pdfName);
 	        mail.sendMail();
-	        // shut down the scheduler
-	        //sched.shutdown(true);
 	        
 	        System.out.println("Mail enviado");
 		} 
@@ -110,6 +118,10 @@ public class MonitoringThread implements Runnable{
 		}
 	}
 
+	/**
+	 * Dado un string con los resultados de la monitorizacion, devuelve el numero de
+	 * cambios existentes para esos resultados.
+	 */
 	private int getNumberOfCHanges (ArrayList<String> changes){
 		int count = 0;
 		for (String row : changes) {

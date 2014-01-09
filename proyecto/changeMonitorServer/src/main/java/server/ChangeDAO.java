@@ -4,8 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Clase que almacena los metodos correspondientes a los cambios
+ */
 public class ChangeDAO {
 
+	/**
+	 * Añade un nuevo cambio en la base de datos local
+	 */
 	public void insertChange(ChangeVO change, Connection connection){
         try{
             /* Create "preparedStatement". */

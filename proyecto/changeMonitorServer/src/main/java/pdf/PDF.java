@@ -14,12 +14,11 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * Clase que genera un PDF con el resultado de la monitorizacion
+ */
 public class PDF {
 
-	/**
-	 * Autores Pallas, Martin, Recuenco
-	 */
-	
 	private String pdfName; //nombre del pdf
 	private String webName; //nombre de la web monitorizada
 	private String startDate; //fecha inicio monitorización
@@ -28,7 +27,6 @@ public class PDF {
 	private String emailAdress; // correo al cual mandar el pdf
 	private String numberOfChanges; //numero de cambios en la web monitorizada
 	private ArrayList<String> content; //contenido almacenado en la BD para generar la tabla
-	
 	/*
 	 * EL contenido debe tener el siguiente formato:
 	 * POR EJEMPLO:
@@ -50,6 +48,11 @@ public class PDF {
 		this.numberOfChanges = numberOfChanges;
 		this.content = content;
 	}
+	
+	/**
+	 * A partir de la base de datos local, obtiene los datos correspondientes a una peticion
+	 * de monitorizacion y genera un PDF con ellos. 
+	 */
 	public void generatePDF() {
 		Document document = new Document();
 
@@ -57,7 +60,8 @@ public class PDF {
             PdfWriter.getInstance(document,
                 new FileOutputStream(pdfName));
     
-            document.open(); //Abre el documento
+            //Abre el documento
+            document.open(); 
             
             //añadir el titulo
             Paragraph titulo = new Paragraph();
@@ -84,9 +88,7 @@ public class PDF {
             Font fontSubtitulo = new Font(Font.FontFamily.HELVETICA  , 12);
             subtitulo.setFont(fontSubtitulo);
             
-         
-            
-            
+            //Añade la información principal
             List unorderedList = new List(List.UNORDERED);
             unorderedList.add(new ListItem("Web monitorizada: "+webName));
             unorderedList.add(new ListItem("Fecha inicio: "+startDate));
@@ -99,7 +101,7 @@ public class PDF {
 
             document.add(subtitulo);
             
-            
+            //Añade la lista de cambios
             String[][] content = convertTable(this.content);
             PdfPTable table = createTable(content); //Crea la tabla
             document.add(table); //La añade al documento
@@ -109,7 +111,8 @@ public class PDF {
         	System.out.println("Problemas al generar el PDF");
         }
 	}
-	/*
+	
+	/**
 	 * Crea una tabla con el contenido pasado por parámetro [content] y la devuelve
 	 */
 	private  static PdfPTable createTable(String[][] content){
@@ -133,7 +136,7 @@ public class PDF {
 		
 	}
 	
-	/*
+	/**
 	 * Convierte un ArrayList<String> a la tabla String[][]
 	 * Los strings del arraylist deben de tener el formato "fecha cambio" 
 	 */

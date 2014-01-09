@@ -2,6 +2,10 @@ package server;
 
 import java.sql.Timestamp;
 
+/**
+ * Clase que representa un formulario con los campos: url acortada, frecuencia de monitorizacion
+ * en minutos, fecha de finalización de la monitorización, email destino y zona horaria del cliente.
+ */
 public class Form {
 
 	private String shortUrl;
@@ -59,6 +63,6 @@ public class Form {
 	}
 	
 	public String toString(){
-		return "URL: "+shortUrl+"  Frecuencia: "+freq+"  FechaFin: "+fechaFin+"  Email: "+email;
+		return "URL: "+shortUrl+"  Frecuencia: "+freq+"  FechaFin: "+fechaFin+"  Email: "+email+" Zone: "+zone;
 	}
 }

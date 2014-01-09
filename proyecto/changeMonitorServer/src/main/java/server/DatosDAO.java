@@ -9,32 +9,41 @@ import monitor.MonitoringThread;
 
 import com.google.gson.Gson;
 
+/**
+ * Clase que crea un nuevo proceso de monitorización.
+ */
 public class DatosDAO {
 
+	/**
+	 * Lee y transforma los datos enviados por json, los valida y comienza la monitorización.
+	 */
 	public String startMonitor(String json){
 		Gson gson = new Gson();
 		Form form = null;
 		try {
-			//Recibe los datos y los transforma en un objetoForm
+			//Recibe los datos y los transforma en un objeto Form
 			form = gson.fromJson(json, Form.class);
 			
+			//Valida el formulario
 			String error = validateForm(form);
 			
+			//Si no hay errores continua la ejecucion
 			if(error.equals("")){
-				//Obtiene la urlReal de la base de datos
+				//Obtiene la url real de la base de datos
 				Facade f = new Facade();
 				String realUrl = f.getRealURL(form.getShortUrl());
 				if(realUrl==null){
 					return "La url "+form.getShortUrl()+" no se encuentra en la base de datos.";
 				}else{
+					//Crea un nuevo formulario con la nueva url
 					CompleteForm CForm = new CompleteForm(form, realUrl);
 					
-					//Start thread 
+					//Comienza la monitorización
 					MonitoringThread m = new  MonitoringThread(CForm);
 					Thread r = new Thread(m); 
 					r.start();
 					
-					//Envio del Mail inicial
+					//Devuelve un mensaje satisfactorio
 					return "Peticion de monitorizacion para la pagina "+realUrl+" recibida.";
 				}
 			}
@@ -45,6 +54,9 @@ public class DatosDAO {
 		}		
 	}
 	
+	/**
+	 * Dado un objeto Form, valida los campos: url, freq, zone y fechafin.
+	 */
 	public String validateForm(Form form){
 		String result = "";
 		if(form.getShortUrl().contains("'")){

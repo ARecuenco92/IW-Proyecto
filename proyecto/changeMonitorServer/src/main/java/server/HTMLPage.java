@@ -9,6 +9,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
+/**
+ * Clase que obtiene el contenido de una pagina web y genera un hash del mismo.
+ */
 public class HTMLPage {
 	
 	private String html;
@@ -17,6 +20,9 @@ public class HTMLPage {
 		this.html = getHTML(url);
 	}
 	
+	/**
+	 * Devuelve el contenido de la pagina [url]
+	 */
 	private String getHTML(String url) throws IOException{
 		URL page = new URL("http://"+url);
 		BufferedReader in = new BufferedReader(new InputStreamReader(page.openStream()));
@@ -26,28 +32,19 @@ public class HTMLPage {
 	    	html = html +inputLine;
 	    }
 	    in.close();
-	    //System.out.println(html);
-	    //Opcion B
-		/*HttpClient httpClient = new DefaultHttpClient();
-		HttpGet request = new HttpGet("http://"+url);
-		String html = null;
-		try {
-			HttpResponse response = httpClient.execute(request);
-			ResponseHandler<String> handler = new BasicResponseHandler();
-	        html = handler.handleResponse(response);
-		    //System.out.println(html);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	    return html;
 	}
 	
+	/**
+	 * Devuelve el contenido de la pagina [url]
+	 */
 	public String getHTML(){
 		return html;
 	}
 	
+	/**
+	 * Devuelve un hash del contenido de la pagina [url]
+	 */
 	public String getHash() throws NoSuchAlgorithmException, UnsupportedEncodingException{
 	    // Hash
 	    byte[] plainText = html.getBytes("UTF8");
@@ -57,6 +54,9 @@ public class HTMLPage {
 	    return byteArray2Hex(md.digest(plainText));
 	}
 	
+	/**
+	 * Devuelve el hash [hash] en formato hexadecimal
+	 */
 	private String byteArray2Hex(final byte[] hash) {
 	    Formatter formatter = new Formatter();
 	    for (byte b : hash) {

@@ -23,9 +23,7 @@ public class ClientRS {
 	        
 	        HttpResponse response = httpClient.execute(request);
 	        ResponseHandler<String> handler = new BasicResponseHandler();
-	        String body = handler.handleResponse(response);
-	        int code = response.getStatusLine().getStatusCode();    
-	        result=body+" \nCode: "+code;
+	        result = handler.handleResponse(response);  
 	    }catch (Exception ex) {
 	        ex.printStackTrace();
 	    } finally {

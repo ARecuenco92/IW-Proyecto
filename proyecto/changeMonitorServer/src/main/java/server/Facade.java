@@ -11,30 +11,15 @@ import java.util.Date;
 import database.ConnectionGlobalManager;
 import database.ConnectionManager;
 
+/**
+ * Clase que agrupa las operaciones relacionadas con los accesos a las BBDD.
+ */
 public class Facade {
 
-	public void insertChange(ChangeVO change) throws SQLException{
-		Connection connection = null;
-        try{
-		   connection = ConnectionManager.getConnection();
-	       ChangeDAO changeDAO = new ChangeDAO();
-		   
-	       changeDAO.insertChange(change,connection);  
-	       connection.close();                    
-        } 
-        catch (Exception e) {
-            e.printStackTrace(System.err);
-        } 
-        finally{
-    		try {
-    			connection.close();
-    		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-        }        
-	}
-	
+	/**
+	 * Dada una url acortada [url], devuelve la url real correspondiente almacenada
+	 * en la BBDD global o devuelve null en caso de error o no existir.
+	 */
 	public String getRealURL(String url){
 		Connection connection = null;
 		String realURL = null;
@@ -69,7 +54,35 @@ public class Facade {
         return realURL;
 	}
 	
+	/**
+	 * Añade un nuevo cambio en la base de datos local
+	 */
+	public void insertChange(ChangeVO change) throws SQLException{
+		Connection connection = null;
+        try{
+		   connection = ConnectionManager.getConnection();
+	       ChangeDAO changeDAO = new ChangeDAO();
+		   
+	       changeDAO.insertChange(change,connection);  
+	       connection.close();                    
+        } 
+        catch (Exception e) {
+            e.printStackTrace(System.err);
+        } 
+        finally{
+    		try {
+    			connection.close();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+        }        
+	}
 	
+	/**
+	 * Dada una url real, una frecuencia, una fecha de finalizacion, un hash y un email,
+	 * almacena dichos campos en la base de datos local.
+	 */
 	public int insert(String url, int frequency, Timestamp endDate, String hash, String email){
 		Connection connection = null;
         try{
@@ -117,6 +130,10 @@ public class Facade {
         return 0;
 	}
 	
+	/**
+	 * Dada una peticion identificada por id, modifica el hash correspondiente
+	 * de la misma al valor [hash].
+	 */
 	public void update(int id, String hash){
 		Connection connection = null;
         try{
@@ -152,6 +169,9 @@ public class Facade {
         }   
 	}
 	
+	/**
+	 * Dada una peticion identificada por id, devuelve último hash de la misma.
+	 */
 	public String getHash(int id) throws SQLException{
 		Connection connection = null;
         try{
@@ -189,7 +209,7 @@ public class Facade {
         }        
 	}
 	
-	/*
+	/**
 	 * Devuelve todos los cambios relacionados con la tabla identificada con [idDatos].
 	 * Es decir, devuelve todos los cambios de una página monitorizada en concreto.
 	 * Estos cambios son devueltos en el formato específico que necesita la clase PDF 
@@ -247,12 +267,6 @@ public class Facade {
         	
         }
 		return content; //Devuelve los cambios
-	}
-	
-	public static void main(String[] args) throws SQLException{
-		Facade f = new Facade();
-		int id = f.insert("url", 5, new Timestamp(new Date().getTime()), "hash", "email");
-		System.out.println(id+".- "+f.getHash(id));
 	}
 	
 }

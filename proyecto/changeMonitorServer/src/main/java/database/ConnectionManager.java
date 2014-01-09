@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//Clase que almacena los datos para conectarse a la BD Local
 public class ConnectionManager {
-	
 	private final static String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 	private final static String DRIVER_URL = "jdbc:mysql://ec2-23-21-211-172.compute-1.amazonaws.com:3306/iweblocal";
 	private final static String USER = "cjperez";
@@ -22,7 +22,10 @@ public class ConnectionManager {
 	}
 
 	private ConnectionManager() {}
-	
+
+	/**
+	 * Devuelve un objeto Connection apuntando a la base de datos global
+	 */
 	public final static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(DRIVER_URL, USER, PASSWORD);
 	}

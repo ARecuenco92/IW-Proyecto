@@ -2,6 +2,10 @@ package server;
 
 import java.sql.Timestamp;
 
+/**
+ * Clase que extiende el formulario básico añadiendo la url real 
+ * y la fecha inicial de monitorización.
+ */
 public class CompleteForm extends Form{
 
 	private String realUrl;

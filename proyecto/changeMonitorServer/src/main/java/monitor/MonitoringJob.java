@@ -15,8 +15,15 @@ import server.ChangeVO;
 import server.Facade;
 import server.HTMLPage;
 
+/**
+ * Proceso que monitoriza una pagina web y comprueba si se han producido cambios.
+ */
 public class MonitoringJob implements Job{
 
+	/**
+	 * Consulta una url pasada como parametro y anota en la BD si se ha producido
+	 * un cambio o no cada vez que es invocado.
+	 */
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		
 		// Get the URL 

@@ -2,6 +2,9 @@ package server;
 
 import java.sql.Timestamp;
 
+/**
+ * Clase que representa la información correspondiente a un cambio en una página.
+ */
 public class ChangeVO {
 	
 	private int idData;

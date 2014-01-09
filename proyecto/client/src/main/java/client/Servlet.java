@@ -109,12 +109,12 @@ public class Servlet extends HttpServlet  {
 					}
 				}else{
 					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-					request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+					request.setAttribute("respuesta","Ha habido un error introduciendo los parametros, vuelva a intentarlo.");
 					dispatcher.forward(request,response);
 				}
 			}catch(Exception ex){
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+				request.setAttribute("respuesta","Ha habido un error introduciendo los parametros, vuelva a intentarlo.");
 				dispatcher.forward(request,response);
 			}
 		}
