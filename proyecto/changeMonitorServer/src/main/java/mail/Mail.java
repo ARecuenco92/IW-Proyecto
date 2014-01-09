@@ -41,8 +41,8 @@ public class Mail {
 	
 	public String sendMail() {
 
-	    final String username = "cjperez8086@gmail.com";
-	    final String password = "uvbvnmilqiourhwn";
+	    final String username = "ingweb2014@gmail.com";
+	    final String password = "ykpfcdmjbpadibut";
 
 	    Properties props = new Properties();
 	    props.put("mail.smtp.auth", true);
