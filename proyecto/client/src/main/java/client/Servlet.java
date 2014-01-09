@@ -21,7 +21,7 @@ public class Servlet extends HttpServlet  {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-		boolean paramOK = true; //Para saber si los parámetros están bien
+		boolean paramOK = true; //Para saber si los parï¿½metros estï¿½n bien
 		String url = request.getParameter("url");
 		String freq = request.getParameter("freq");
 		String date = request.getParameter("date");
@@ -64,7 +64,7 @@ public class Servlet extends HttpServlet  {
 		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 		Matcher matcher = pattern.matcher(email);
 		if(!matcher.matches()){
-			System.err.println("Error: el email no está bien formado");
+			System.err.println("Error: el email no estÃ¡ bien formado");
 			paramOK=false;
 		}
 		//Check hour
@@ -100,7 +100,7 @@ public class Servlet extends HttpServlet  {
 					String result = client.sendData(form, "http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor");
 					if(result.startsWith("Peticion de monitorizacion para la pagina")){					
 						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-						request.setAttribute("respuesta","Monitorización iniciada correctamente");
+						request.setAttribute("respuesta","MonitorizaciÃ³n iniciada correctamente");
 						dispatcher.forward(request,response);
 					}else{
 						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -109,18 +109,18 @@ public class Servlet extends HttpServlet  {
 					}
 				}else{
 					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-					request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+					request.setAttribute("respuesta","Ha habido un error introduciendo los parÃ¡metros, vuelva a intentarlo.");
 					dispatcher.forward(request,response);
 				}
 			}catch(Exception ex){
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+				request.setAttribute("respuesta","Ha habido un error introduciendo los parÃ¡metros, vuelva a intentarlo.");
 				dispatcher.forward(request,response);
 			}
 		}
 		else { //error
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+			request.setAttribute("respuesta","Ha habido un error introduciendo los parÃ¡metros, vuelva a intentarlo.");
 			dispatcher.forward(request,response);
 		}
 	}
