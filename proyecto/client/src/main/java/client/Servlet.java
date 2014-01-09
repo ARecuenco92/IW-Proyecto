@@ -81,7 +81,7 @@ public class Servlet extends HttpServlet  {
 		if(paramOK){
 			try{
 				Timestamp dateTime = null;
-				long month = 1000*60*60*24*31; // A Month in miliseconds
+				long month = 2678400000L; // A Month in miliseconds
 				if(hour!=null && !hour.equals("")){
 					String dateHour = date+"-"+hour;
 					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
