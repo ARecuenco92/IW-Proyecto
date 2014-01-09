@@ -69,7 +69,11 @@ public class DatosDAO {
 			result = result + "Zona fuera de rango ";
 		}
 		long hour = 3600000;
-		if(form.getFechaFin().before(new Timestamp(new Date().getTime()-form.getZone()*hour))){
+		long month = 1000*60*60*24*31; // A Month in miliseconds
+		Timestamp now = new Timestamp(new Date().getTime()-form.getZone()*hour);
+		if(form.getFechaFin().before(now)){
+			result = result + "Fecha final incorrecta ";
+		}else if(now.getTime()+month<form.getFechaFin().getTime()){
 			result = result + "Fecha final incorrecta ";
 		}
 		String EMAIL_PATTERN = 
