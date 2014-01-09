@@ -2,7 +2,6 @@ package client;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -29,60 +28,88 @@ public class Servlet extends HttpServlet  {
 		String email = request.getParameter("email");
 		String hour = request.getParameter("hour");
 		String dateDelay = request.getParameter("dateDelay");
-		String dateHour = date+"-"+hour;
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
-		Date d = null;
-		Timestamp dateTime = null;
-		try {
-			d = df.parse(dateHour);
-			dateTime = new Timestamp(d.getTime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
 		//Check parameters
 		//Check null or empty
 		if(url==null || url.equals("") || freq==null || freq.equals("") || date==null || date.equals("") ||
-				email==null || email.equals("") || hour==null || hour.equals("")){
-			System.err.println("Error: se han detectado parámetros nulos o vacíos");
+				email==null || email.equals("") || dateDelay==null || dateDelay.equals("")){
+			System.err.println("Error: parametros vacios");
 			paramOK=false;
-			
 		}
-		else{
-			//Check frequency
-			if(Integer.parseInt(freq)<5){ //min frequency 5 min
-				System.err.println("Error: frecuencia incorrecta");
-				paramOK=false;
-			}
-			int zone = Integer.parseInt(dateDelay);
-			if(zone%60!=0 || zone<-720 || zone>720){
-				System.err.println("Error: zona incorrecta");
-				paramOK=false;
-			}
-			//Check email
-			 String EMAIL_PATTERN = 
-					"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-			 Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-			 Matcher matcher = pattern.matcher(email);
-			 if(!matcher.matches()){
-				 System.err.println("Error: el email no está bien formado");
-				 paramOK=false;
-			 }
+		//Check url
+		String URL_PATTERN = "^http://7iw.es/*|7iw.es/*|www.7iw.es/*|http://www.7iw.es/*$";
+		Pattern pattern1 = Pattern.compile(URL_PATTERN);
+		Matcher matcher1 = pattern1.matcher(url);
+		if(!matcher1.matches()){
+			System.err.println("Error: url incorrecta");
+			paramOK=false;
+		}
+		//Check frequency
+		if(Integer.parseInt(freq)<5 && Integer.parseInt(freq)>300){ //min frequency 5 min
+			System.err.println("Error: frecuencia incorrecta");
+			paramOK=false;
+		}
+		//Check date delay
+		int zone = Integer.parseInt(dateDelay);
+		if(zone%60!=0 || zone<-720 || zone>720){
+			System.err.println("Error: zona incorrecta");
+			paramOK=false;
+		}
+		//Check email
+		String EMAIL_PATTERN = 
+				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = pattern.matcher(email);
+		if(!matcher.matches()){
+			System.err.println("Error: el email no está bien formado");
+			paramOK=false;
+		}
+		//Check hour
+		if(hour!=null && !hour.equals("") && (Integer.parseInt(hour)>24 || Integer.parseInt(hour)<0)){
+			System.err.println("Error: hora incorrecta");
+			paramOK=false;
 		}
 		
-		//if all params all OK then the data is sent.
 		if(paramOK){
-		
-			Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
-			System.out.println("Se va a pedir"+form);
-			ClientRS client = new ClientRS();
-			String result = client.sendData(form, "http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor");
-			System.out.println(result);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("respuesta","Monitorización iniciada correctamente");
-			dispatcher.forward(request,response);
+			try{
+				Timestamp dateTime = null;
+				if(hour!=null && !hour.equals("")){
+					String dateHour = date+"-"+hour;
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
+					Date d = df.parse(dateHour);
+					dateTime = new Timestamp(d.getTime());
+				}
+				else{
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+					Date d = df.parse(date);
+					dateTime = new Timestamp(d.getTime());
+				}
+				Timestamp now = new Timestamp(new Date().getTime());
+				if(now.after(dateTime)){
+					paramOK=false;
+				}
+				
+				if(paramOK){
+					//if all params all OK then the data is sent.
+					Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
+					System.out.println("Se va a pedir"+form);
+					ClientRS client = new ClientRS();
+					String result = client.sendData(form, "http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor");
+					System.out.println(result);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+					request.setAttribute("respuesta","Monitorización iniciada correctamente");
+					dispatcher.forward(request,response);
+				}else{
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+					request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+					dispatcher.forward(request,response);
+				}
+			}catch(Exception ex){
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+				dispatcher.forward(request,response);
+			}
 		}
 		else { //error
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
