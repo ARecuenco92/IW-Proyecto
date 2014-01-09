@@ -1,6 +1,5 @@
-<!DOCTYPE html> 
+<html>
 <html lang="es">
-<head>
 <meta charset="UTF-8">
 <title>Monitorizador de Cambios</title>
 <link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css">
@@ -22,8 +21,8 @@ input{ max-width: 350px; }
  el plazo establecido se le enviará un correo con el informe detallado.<p/>
 <form role="form" method="post" action="form" id="form" style="padding:1%; border: 1px #eee solid; border-radius:4px;">
 <div class="form-group">
-    <label for="url" class="col-sm-3">Url acortada de la página a monitorizar</label>
-    <input type="text" name="url" class="form-control" id="url" placeholder="Url Acortada" required>
+    <label for="url" class="col-sm-3">Url acortada a monitorizar</label>
+    <input type="text" name="url" class="form-control" id="url" placeholder="Url Acortada" value="http://7iw.es/" required>
 </div>
 <div class="form-group">
     <label for="freq" class="col-sm-3">Frecuencia en minutos [5 - 300]</label>
@@ -55,11 +54,4 @@ input{ max-width: 350px; }
 	};
 </script>
 </body>
-</html>
-
-	<body>
-
-		
-		
-	</body>
 </html>
