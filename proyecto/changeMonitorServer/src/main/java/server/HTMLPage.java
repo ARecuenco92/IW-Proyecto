@@ -26,7 +26,7 @@ public class HTMLPage {
 	    	html = html +inputLine;
 	    }
 	    in.close();
-	    System.out.println(html);
+	    //System.out.println(html);
 	    //Opcion B
 		/*HttpClient httpClient = new DefaultHttpClient();
 		HttpGet request = new HttpGet("http://"+url);
