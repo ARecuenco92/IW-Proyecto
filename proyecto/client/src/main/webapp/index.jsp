@@ -26,15 +26,15 @@ input{ max-width: 350px; }
 </div>
 <div class="form-group">
     <label for="freq" class="col-sm-3">Frecuencia en minutos [5 - 300]</label>
-    <input type="number" name="freq" class="form-control" id="freq" placeholder="Frecuencia Minutos" required>
+    <input type="text" name="freq" class="form-control" id="freq" placeholder="Frecuencia Minutos" pattern="([5-9][0-9]{0,1}|[1-3][0-9]{2})" required>
 </div>
 <div class="form-group">
     <label for="date" class="col-sm-3">Fecha finalización (max. 1 Mes)</label>
-    <input type="date" name="date" class="form-control" id="date" placeholder="Fecha Final" required>
+    <input type="date" name="date" class="form-control" id="date" placeholder="Fecha Final(yyyy-mm-dd)" pattern="([0-9]{4}-[0-2][0-9]-[0-3][0-9])" required>
 </div>
 <div class="form-group">
     <label for="hour" class="col-sm-3">Hora finalización (opcional)</label>
-    <input type="number" name="hour" class="form-control" id="hour" placeholder="Hora Final">
+    <input type="text" name="hour" class="form-control" id="hour" placeholder="Hora Final" pattern="([0-9]|[0-1][0-9]{0,1}|[2][0-3])">
 </div>
 <div class="form-group">
     <label for="email" class="col-sm-3">Email al que se enviará el informe</label>
