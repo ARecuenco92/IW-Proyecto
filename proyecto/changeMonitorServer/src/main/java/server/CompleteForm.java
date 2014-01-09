@@ -10,7 +10,8 @@ public class CompleteForm extends Form{
 	public CompleteForm(Form form, String realUrl) {
 		super(form.getShortUrl(), form.getFreq(), form.getFechaFin(), form.getEmail(), form.getZone());
 		this.realUrl = realUrl;
-		this.startDate = new Timestamp(System.currentTimeMillis());
+        long hour=3600000;
+		this.startDate = new Timestamp(System.currentTimeMillis()-form.getZone()*hour);
 	}
 	
     public String getRealUrl() {

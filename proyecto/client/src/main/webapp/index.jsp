@@ -8,7 +8,7 @@
 			}
 			%>
 		<h2>Monitorizador de cambios en páginas</h2>
-		<form method="post" action="hello">
+		<form method="post" action="form" id="form">
 		
 			Rellene el formulario para comenzar la monitorización, una vez finalizado
 			el plazo establecido se le enviará un correo con el informe detallado.<br/><hr>

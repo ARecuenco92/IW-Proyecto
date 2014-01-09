@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/hello" })
+@WebServlet(urlPatterns = { "/form" })
 public class Servlet extends HttpServlet  {
 
 	private static final long serialVersionUID = -8677908170932276120L;
@@ -31,6 +31,7 @@ public class Servlet extends HttpServlet  {
 		String dateDelay = request.getParameter("dateDelay");
 		String dateHour = date+"-"+hour;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
+		System.out.println(url+" "+freq);
 		Date d = null;
 		Timestamp dateTime = null;
 		try {
@@ -69,9 +70,11 @@ public class Servlet extends HttpServlet  {
 		//if all params all OK then the data is sent.
 		if(paramOK){
 		
+			
 			Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
+			System.out.println("Se va a pedir"+form);
 			ClientRS client = new ClientRS();
-			String result = client.sendData(form, "http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor");
+			String result = client.sendData(form, "http://ingweb.jelastic.lunacloud.com/changeMonitor");
 			System.out.println(result);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
