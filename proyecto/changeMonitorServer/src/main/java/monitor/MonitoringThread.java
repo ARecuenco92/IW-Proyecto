@@ -50,6 +50,7 @@ public class MonitoringThread implements Runnable{
         try {
 			
         	Mail mail = new Mail(form.getRealUrl(), form.getEmail()); 
+        	mail.sendMail();
         	// First we must get a reference to a scheduler
 	        SchedulerFactory sf = new StdSchedulerFactory();
 	        Scheduler sched = sf.getScheduler();

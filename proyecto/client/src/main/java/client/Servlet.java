@@ -95,14 +95,18 @@ public class Servlet extends HttpServlet  {
 				if(paramOK){
 					//if all params all OK then the data is sent.
 					Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
-					System.out.println("Se va a pedir"+form);
+					//System.out.println("Se va a pedir"+form);
 					ClientRS client = new ClientRS();
 					String result = client.sendData(form, "http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor");
-					System.out.println(result);
-					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-					request.setAttribute("respuesta","Monitorización iniciada correctamente");
-					dispatcher.forward(request,response);
+					if(result.startsWith("Peticion de monitorizacion para la pagina")){					
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						request.setAttribute("respuesta","Monitorización iniciada correctamente");
+						dispatcher.forward(request,response);
+					}else{
+						RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+						request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
+						dispatcher.forward(request,response);
+					}
 				}else{
 					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 					request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
