@@ -42,6 +42,9 @@ public class Servlet extends HttpServlet  {
 		if(!matcher1.matches()){
 			System.err.println("Error: url incorrecta");
 			paramOK=false;
+		}else{
+			url = url.substring(url.indexOf("7iw.es/")+6);
+			System.out.println(url);
 		}
 		//Check frequency
 		if(Integer.parseInt(freq)<5 && Integer.parseInt(freq)>300){ //min frequency 5 min
