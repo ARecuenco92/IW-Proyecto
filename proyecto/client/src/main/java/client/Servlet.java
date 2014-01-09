@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Clase que lee los par√°metros del formulario y realiza una petici√≥n al servicio
+ * Clase que lee los par·metros del formulario y realiza una peticiÛn al servicio
  * de monitorizacion: http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor
  */
 public class Servlet extends HttpServlet  {
@@ -70,7 +70,7 @@ public class Servlet extends HttpServlet  {
 		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 		Matcher matcher = pattern.matcher(email);
 		if(!matcher.matches()){
-			System.err.println("Error: el email no est√° bien formado");
+			System.err.println("Error: el email no est· bien formado");
 			paramOK=false;
 		}
 		//Check hour
@@ -78,10 +78,16 @@ public class Servlet extends HttpServlet  {
 			System.err.println("Error: hora incorrecta");
 			paramOK=false;
 		}
+		//Check date
+		if(date!=null && !date.equals("")){
+			System.err.println("Error: fecha incorrecta");
+			paramOK=false;
+		}
 		
 		if(paramOK){
 			try{
 				Timestamp dateTime = null;
+				long month = 1000*60*60*24*31; // A Month in miliseconds
 				if(hour!=null && !hour.equals("")){
 					String dateHour = date+"-"+hour;
 					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
@@ -94,7 +100,8 @@ public class Servlet extends HttpServlet  {
 					dateTime = new Timestamp(d.getTime());
 				}
 				Timestamp now = new Timestamp(new Date().getTime());
-				if(now.after(dateTime)){
+				if(now.getTime()<dateTime.getTime() && now.getTime()+month>dateTime.getTime()){
+					System.err.println("Error: el periodo de monitorizaciÛn es superior a un mes");
 					paramOK=false;
 				}
 				
