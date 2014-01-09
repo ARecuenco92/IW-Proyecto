@@ -10,8 +10,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
 
+/**
+ * Cliente HTTP que realiza una peticion POST enviando un formulario como json
+ */
 public class ClientRS {
 
+	/**
+	 * Realiza una peticion POST a la url [url] enviando como contenido el objeto
+	 * Form [form] codificado como json
+	 */
 	public String sendData(Form form, String url){
 		HttpClient httpClient = new DefaultHttpClient();
 		String result = null;

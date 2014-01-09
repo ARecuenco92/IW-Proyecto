@@ -57,7 +57,7 @@ public class Facade {
 	/**
 	 * Añade un nuevo cambio en la base de datos local
 	 */
-	public void insertChange(ChangeVO change) throws SQLException{
+	public synchronized void insertChange(ChangeVO change) throws SQLException{
 		Connection connection = null;
         try{
 		   connection = ConnectionManager.getConnection();
@@ -83,7 +83,7 @@ public class Facade {
 	 * Dada una url real, una frecuencia, una fecha de finalizacion, un hash y un email,
 	 * almacena dichos campos en la base de datos local.
 	 */
-	public int insert(String url, int frequency, Timestamp endDate, String hash, String email){
+	public synchronized int insert(String url, int frequency, Timestamp endDate, String hash, String email){
 		Connection connection = null;
         try{
 		   connection = ConnectionManager.getConnection();

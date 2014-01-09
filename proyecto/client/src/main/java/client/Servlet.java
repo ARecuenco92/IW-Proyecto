@@ -9,16 +9,22 @@ import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/form" })
+/**
+ * Clase que lee los parámetros del formulario y realiza una petición al servicio
+ * de monitorizacion: http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor
+ */
 public class Servlet extends HttpServlet  {
 
 	private static final long serialVersionUID = -8677908170932276120L;
 
+	/**
+	 * Recibe los parametros url, frecuencia, fecha, email y hora, los valida y llama al
+	 * servicio de monitorización a partir de los datos recibidos.
+	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		boolean paramOK = true; //Para saber si los par�metros est�n bien
@@ -123,6 +129,14 @@ public class Servlet extends HttpServlet  {
 			request.setAttribute("respuesta","Ha habido un error introduciendo los parámetros, vuelva a intentarlo.");
 			dispatcher.forward(request,response);
 		}
+	}
+	
+	/**
+	 * Devuelve la pagina con el formulario
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request,response);
 	}
 	
 }
