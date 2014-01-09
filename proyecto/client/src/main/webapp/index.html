@@ -1,16 +1,40 @@
 <html>
-<body>
-<h2>Monitorizador de cambios en p·ginas</h2>
-<form method="post" action="form" id="form">
-Rellene el formulario para comenzar la monitorizaciÛn, una vez finalizado
- el plazo establecido se le enviar· un correo con el informe detallado.<br/><hr>
-Url acortada de la p·gina a monitorizar <input type="text" name="url"><br/><hr>
-Frecuencia en minutos (minimo 5 minutos) <input type="number" name="freq"><br/><hr>
-Fecha final de monitorizaciÛn (m·ximo 1 mes) <input type="date" name="date"><br/><hr>
-Hora final de monitorizaciÛn (opcional) <input type="number" name="hour"><br/><hr>
-Email al que se enviar· el informe <input type="text" name="email"><br/><hr>
-<br/>
-<button type="submit" value="Submit">Enviar</button>
+<head>
+<meta charset="UTF-8">
+<title>Monitorizador de Cambios</title>
+<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css">
+<style>
+input{ max-width: 350px; }
+</style>
+</head>
+<body style="margin: 0% 1%;">
+<div class="page-header">
+  <h1 style="margin-bottom:2px;">Monitorizador de cambios en p√°ginas</h1>
+</div>
+<p style="margin-bottom:15px;">Rellene el formulario para comenzar la monitorizaci√≥n, una vez finalizado
+ el plazo establecido se le enviar√° un correo con el informe detallado.<p/>
+<form role="form" method="post" action="form" id="form" style="padding:1%; border: 1px #eee solid; border-radius:4px;">
+<div class="form-group">
+    <label for="url" class="col-sm-3">Url acortada de la p√°gina a monitorizar</label>
+    <input type="text" name="url" class="form-control" id="url" placeholder="Url Acortada">
+</div>
+<div class="form-group">
+    <label for="freq" class="col-sm-3">Frecuencia en minutos [5 - 300]</label>
+    <input type="number" name="freq" class="form-control" id="freq" placeholder="Frecuencia Minutos">
+</div>
+<div class="form-group">
+    <label for="date" class="col-sm-3">Fecha final de monitorizaci√≥n (max. 1 Mes)</label>
+    <input type="date" name="date" class="form-control" id="date" placeholder="Fecha Final">
+</div>
+<div class="form-group">
+    <label for="hour" class="col-sm-3">Hora final de monitorizaci√≥n (opcional)</label>
+    <input type="number" name="hour" class="form-control" id="hour" placeholder="Hora Final">
+</div>
+<div class="form-group">
+    <label for="email" class="col-sm-3">Email al que se enviar√° el informe</label>
+    <input type="email" name="email" class="form-control" id="email" placeholder="Email Entrega">
+</div>
+<button id="submit" class="btn btn-primary" type="submit" value="Submit">Enviar Datos</button>
 </form>
 <script>
 	var input = document.createElement("input");
