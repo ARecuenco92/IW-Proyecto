@@ -8,7 +8,7 @@ public class CompleteForm extends Form{
 	private Timestamp startDate;
 	
 	public CompleteForm(Form form, String realUrl) {
-		super(form.getShortUrl(), form.getFreq(), form.getFechaFin(), form.getEmail());
+		super(form.getShortUrl(), form.getFreq(), form.getFechaFin(), form.getEmail(), form.getZone());
 		this.realUrl = realUrl;
 		this.startDate = new Timestamp(System.currentTimeMillis());
 	}

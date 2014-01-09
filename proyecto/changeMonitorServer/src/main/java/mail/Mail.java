@@ -27,13 +27,19 @@ public class Mail {
 	private String emailAddress;   //Dirección de email al cual mandamos el informe
 	private String pdfName; //Nombre del fichero PDF que se envia 
 	
+	public Mail(String pageName, String emailAddress){
+		this.pageName = pageName;
+		this.emailAddress = emailAddress;
+		this.pdfName = null;
+	}
+	
 	public Mail(String pageName, String emailAddress, String pdfName){
 		this.pageName = pageName;
 		this.emailAddress = emailAddress;
 		this.pdfName = pdfName;
-		
 	}
-	public void sendMail() {
+	
+	public String sendMail() {
 
 	    final String username = "cjperez8086@gmail.com";
 	    final String password = "uvbvnmilqiourhwn";
@@ -52,12 +58,23 @@ public class Mail {
 	            });
 
 	    try {
+	    	String subject, text, content;
+	    	if(pdfName==null){
+	    		subject = "Comienzo de la monitorización - IW7I";
+	    		text = "Le enviamos el informe de la pagina "+pageName+", adjuntado en un documento pdf.";
+	    		content = "Le enviamos el informe de la pagina "+pageName+", adjuntado en un documento pdf.";
+	    	}else{
+	    		subject = "Informe de monitorización - IW7I";
+	    		text = "Petición de monitorización para la página "+pageName+" recibida correctamente.";
+	    		content = "Petición de monitorización para la página "+pageName+" recibida correctamente."
+		        		+ " Se le enviará un mensaje con el informe una vez finalizado el plazo seleccionado.";
+	    	}
 
 	        Message message = new MimeMessage(session);
 	        message.setFrom(new InternetAddress("IW7I"));
 	        message.setRecipients(Message.RecipientType.TO,
 	                InternetAddress.parse(emailAddress));
-	        message.setSubject("Informe de monitorización - IW7I");
+	        message.setSubject(subject);
 
 	        MimeBodyPart messageBodyPart = new MimeBodyPart();
 	       
@@ -67,32 +84,35 @@ public class Mail {
 	        // Create the message part
 	        BodyPart messageBodyPart2 = new MimeBodyPart();
 	        // Fill the message
-	        messageBodyPart2.setText("Le enviamos el informe de la pagina "+ pageName+", adjuntado en un documento pdf.");
-	        messageBodyPart2.setContent("Le enviamos el informe de la pagina "+ pageName+", adjuntado en un documento pdf.", "text/html");
+	        messageBodyPart2.setText(text);
+	        messageBodyPart2.setContent(content, "text/html");
 	        multipart.addBodyPart(messageBodyPart2); //se añade
 	        
-	        
-	        //Crete de attachment file part
-	        messageBodyPart = new MimeBodyPart();
-	        
-	        
-	        String file = pdfName;
-	        String fileName = pdfName;
-	        DataSource source = new FileDataSource(file);
-	        messageBodyPart.setDataHandler(new DataHandler(source));
-	        messageBodyPart.setFileName(fileName);
-	        multipart.addBodyPart(messageBodyPart);
+	        if(pdfName!=null){
+		        //Crete de attachment file part
+		        messageBodyPart = new MimeBodyPart();
+		        
+		        String file = pdfName;
+		        String fileName = pdfName;
+		        DataSource source = new FileDataSource(file);
+		        messageBodyPart.setDataHandler(new DataHandler(source));
+		        messageBodyPart.setFileName(fileName);
+		        multipart.addBodyPart(messageBodyPart);
+	        }
 
 	        message.setContent(multipart);
 
-	        System.out.println("Sending1");
+	        System.out.println("Sending "+pdfName==null);
 
 	        Transport.send(message);
 
-	        System.out.println("Done1");
+	        System.out.println("Done "+pdfName==null);
+	        
+	        return "MENSAJE ENVIADO SIN ERRORES";
 
 	    } catch (MessagingException e) {
 	        e.printStackTrace();
+	        return e.getMessage()+" "+e.getLocalizedMessage();
 	    }
 	  }
 

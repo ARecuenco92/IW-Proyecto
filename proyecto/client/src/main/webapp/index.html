@@ -1,7 +1,7 @@
 <html>
 <body>
 <h2>Monitorizador de cambios en páginas</h2>
-<form method="post" action="hello">
+<form method="post" action="hello" id="form">
 Rellene el formulario para comenzar la monitorización, una vez finalizado
  el plazo establecido se le enviará un correo con el informe detallado.<br/><hr>
 Url acortada de la página a monitorizar <input type="text" name="url"><br/><hr>
@@ -12,5 +12,12 @@ Email al que se enviará el informe <input type="text" name="email"><br/><hr>
 <br/>
 <button type="submit" value="Submit">Enviar</button>
 </form>
+<script>
+	var input = document.createElement("input");
+	input.setAttribute("type", "hidden");
+	input.setAttribute("name", "dateDelay");
+	input.setAttribute("value", new Date().getTimezoneOffset());
+	document.getElementById("form").appendChild(input);
+</script>
 </body>
 </html>

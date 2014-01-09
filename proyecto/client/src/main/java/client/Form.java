@@ -8,12 +8,14 @@ public class Form {
 	private int freq;
 	private Timestamp fechaFin;
 	private String email;
+	private int zone;
     
-    public Form(String shortUrl, int freq, Timestamp fechaFin, String email){
+    public Form(String shortUrl, int freq, Timestamp fechaFin, String email, int zone){
     	this.shortUrl = shortUrl;
     	this.freq= freq;
     	this.fechaFin = fechaFin;
     	this.email = email;
+    	this.zone = zone;
     }
     
     public String getShortUrl() {
@@ -46,6 +48,14 @@ public class Form {
 	
 	public void setFechafin(Timestamp fechaFin) {
 	    this.fechaFin = fechaFin;
+	}
+	
+	public int getZone() {
+	    return zone;
+	}
+	
+	public void setZone(int zone) {
+		this.zone = zone;
 	}
 	
 	public String toString(){

@@ -1,6 +1,6 @@
 package server;
 
-import mail.Mail2;
+import mail.Mail;
 import monitor.MonitoringThread;
 
 import com.google.gson.Gson;
@@ -11,7 +11,10 @@ public class DatosDAO {
 		Gson gson = new Gson();
 		Form form = null;
 		try {
+			//Recibe los datos y los transforma en un objetoForm
 			form = gson.fromJson(json, Form.class);
+			
+			//Obtiene la urlReal de la base de datos
 			Facade f = new Facade();
 			String realUrl = f.getRealURL(form.getShortUrl());
 			CompleteForm CForm = new CompleteForm(form, realUrl);
@@ -20,7 +23,9 @@ public class DatosDAO {
 			MonitoringThread m = new  MonitoringThread(CForm);
 			Thread r = new Thread(m); 
 			r.start();
-			Mail2 mail = new Mail2(CForm.getRealUrl(), CForm.getEmail());
+			
+			//Envio del Mail inicial
+			Mail mail = new Mail(CForm.getRealUrl(), CForm.getEmail());
 			return mail.sendMail();
 		}catch(Exception ex){
 			ex.printStackTrace();

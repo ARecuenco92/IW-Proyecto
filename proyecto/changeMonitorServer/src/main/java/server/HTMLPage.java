@@ -27,6 +27,20 @@ public class HTMLPage {
 	    }
 	    in.close();
 	    System.out.println(html);
+	    //Opcion B
+		/*HttpClient httpClient = new DefaultHttpClient();
+		HttpGet request = new HttpGet("http://"+url);
+		String html = null;
+		try {
+			HttpResponse response = httpClient.execute(request);
+			ResponseHandler<String> handler = new BasicResponseHandler();
+	        html = handler.handleResponse(response);
+		    //System.out.println(html);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
 	    return html;
 	}
 	

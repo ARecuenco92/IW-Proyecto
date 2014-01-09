@@ -28,6 +28,7 @@ public class Servlet extends HttpServlet  {
 		String date = request.getParameter("date");
 		String email = request.getParameter("email");
 		String hour = request.getParameter("hour");
+		String dateDelay = request.getParameter("dateDelay");
 		String dateHour = date+"-"+hour;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH");
 		Date d = null;
@@ -68,7 +69,7 @@ public class Servlet extends HttpServlet  {
 		//if all params all OK then the data is sent.
 		if(paramOK){
 		
-			Form form = new Form(url, Integer.parseInt(freq), dateTime, email);
+			Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
 			ClientRS client = new ClientRS();
 			String result = client.sendData(form, "http://changemonitorserver.arecuenco92.eu.cloudbees.net/changeMonitor");
 			System.out.println(result);

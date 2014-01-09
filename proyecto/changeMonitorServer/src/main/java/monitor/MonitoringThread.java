@@ -74,9 +74,10 @@ public class MonitoringThread implements Runnable{
 	        // Start up the scheduler (nothing can actually run until the 
 	        // scheduler has been started)
 	        sched.start();
+	        long hour=3600000;
 	        
 	        try {
-				Thread.sleep(form.getFechaFin().getTime()-form.getStartDate().getTime()+10000);
+				Thread.sleep(form.getFechaFin().getTime()-form.getStartDate().getTime()+10000+form.getZone()*hour);
 			} 
 	        catch (InterruptedException e) {
 				e.printStackTrace();
