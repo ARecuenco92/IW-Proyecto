@@ -15,10 +15,10 @@ input{ max-width: 350px; }
 			}
 		%>
 <div class="page-header">
-  <h1 style="margin-bottom:2px;">Monitorizador de cambios en p·ginas</h1>
+  <h1 style="margin-bottom:2px;">Monitorizador de cambios en p√°ginas</h1>
 </div>
-<p style="margin-bottom:15px;">Rellene el formulario para comenzar la monitorizaciÛn, una vez finalizado
- el plazo establecido se le enviar· un correo con el informe detallado.<p/>
+<p style="margin-bottom:15px;">Rellene el formulario para comenzar la monitorizaci√≥n, una vez finalizado
+ el plazo establecido se le enviar√° un correo con el informe detallado.<p/>
 <form role="form" method="post" action="form" id="form" style="padding:1%; border: 1px #eee solid; border-radius:4px;">
 <div class="form-group">
     <label for="url" class="col-sm-3">Url acortada a monitorizar</label>
@@ -29,15 +29,15 @@ input{ max-width: 350px; }
     <input type="text" name="freq" class="form-control" id="freq" placeholder="Frecuencia Minutos" pattern="([5-9][0-9]{0,1}|[1-3][0-9]{2})" required>
 </div>
 <div class="form-group">
-    <label for="date" class="col-sm-3">Fecha finalizaciÛn (max. 1 Mes)</label>
+    <label for="date" class="col-sm-3">Fecha finalizaci√≥n (max. 1 Mes)</label>
     <input type="date" name="date" class="form-control" id="date" placeholder="Fecha Final(yyyy-mm-dd)" pattern="([0-9]{4}-[0-2][0-9]-[0-3][0-9])" required>
 </div>
 <div class="form-group">
-    <label for="hour" class="col-sm-3">Hora finalizaciÛn (opcional)</label>
+    <label for="hour" class="col-sm-3">Hora finalizaci√≥n (opcional)</label>
     <input type="text" name="hour" class="form-control" id="hour" placeholder="Hora Final" pattern="([0-9]|[0-1][0-9]{0,1}|[2][0-3])">
 </div>
 <div class="form-group">
-    <label for="email" class="col-sm-3">Email al que se enviar· el informe</label>
+    <label for="email" class="col-sm-3">Email al que se enviar√° el informe</label>
     <input type="email" name="email" class="form-control" id="email" placeholder="Email Entrega" required>
 </div>
 <button id="submit" class="btn btn-primary" type="submit" value="Submit">Enviar Datos</button>
