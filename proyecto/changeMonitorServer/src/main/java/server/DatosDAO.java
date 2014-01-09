@@ -76,6 +76,11 @@ public class DatosDAO {
 		}else if(now.getTime()+month < form.getFechaFin().getTime()){
 			result = result + "Fecha final incorrecta ";
 		}
+		long month = 2678400000L; // A Month in miliseconds
+		Timestamp now = new Timestamp(new Date().getTime());
+		if(now.getTime()>form.getFechaFin().getTime() || now.getTime()+month<form.getFechaFin().getTime()){
+			result = result + "Fecha final incorrecta ";
+		}
 		String EMAIL_PATTERN = 
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
