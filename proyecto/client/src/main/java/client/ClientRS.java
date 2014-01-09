@@ -40,8 +40,8 @@ public class ClientRS {
 		long hour = 3600000;
 		long minute = 60000;
 		long timeToMonitor = hour;
-		System.out.println(new ClientRS().sendData(new Form("abcdef", 2, new Timestamp(System.currentTimeMillis()+10*minute), "betomartinkio@gmail.com", -1), 
-				"http://ingweb.jelastic.lunacloud.com/changeMonitor"));
+		System.out.println(new ClientRS().sendData(new Form("abcdef", 2, new Timestamp(System.currentTimeMillis()+10*minute), "cjperez8086@gmail.com", -1), 
+				"http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor"));
 		/*System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 
 				"http://localhost:8080/server2/rest/sayHello"));*/
 		/*System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 

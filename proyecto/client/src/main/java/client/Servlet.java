@@ -77,7 +77,7 @@ public class Servlet extends HttpServlet  {
 			Form form = new Form(url, Integer.parseInt(freq), dateTime, email, Integer.parseInt(dateDelay)/60);
 			System.out.println("Se va a pedir"+form);
 			ClientRS client = new ClientRS();
-			String result = client.sendData(form, "http://ingweb.jelastic.lunacloud.com/changeMonitor");
+			String result = client.sendData(form, "http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor");
 			System.out.println(result);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
