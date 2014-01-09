@@ -47,6 +47,7 @@ public class MonitoringJob implements Job{
 			ChangeVO changeVO = new ChangeVO(id, -1, date, change);
 			facade.insertChange(changeVO);
 			System.out.println("Cambio: "+id+" - "+date+" - "+change);
+			System.out.println("OldHash: "+last+"  New Hash: "+hash);
 		} 
 		catch (MalformedURLException e) {
 				e.printStackTrace();

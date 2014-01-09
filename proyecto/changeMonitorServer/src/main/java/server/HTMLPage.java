@@ -26,6 +26,7 @@ public class HTMLPage {
 	    	html = html +inputLine;
 	    }
 	    in.close();
+	    System.out.println(html);
 	    return html;
 	}
 	

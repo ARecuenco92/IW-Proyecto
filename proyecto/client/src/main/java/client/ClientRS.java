@@ -37,8 +37,11 @@ public class ClientRS {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+90000-3600000), "betomartinkio@gmail.com"), 
-				"http://changemonitorserver.iwebunizar.cloudbees.net/changeMonitor"));
+		long hour = 3600000;
+		long minute = 60000;
+		long timeToMonitor = hour;
+		System.out.println(new ClientRS().sendData(new Form("abcdef", 5, new Timestamp(System.currentTimeMillis()), "betomartinkio@gmail.com"), 
+				"http://ingweb.eu01.aws.af.cm/changeMonitor"));
 		/*System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 
 				"http://localhost:8080/server2/rest/sayHello"));*/
 		/*System.out.println(new ClientRS().sendData(new Form("FvQZJj", 1, new Timestamp(System.currentTimeMillis()+110000), "626125@unizar.es"), 

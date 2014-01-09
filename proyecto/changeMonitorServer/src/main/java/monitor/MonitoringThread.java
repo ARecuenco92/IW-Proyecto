@@ -97,7 +97,7 @@ public class MonitoringThread implements Runnable{
 	        Mail mail = new Mail(form.getRealUrl(), form.getEmail(), pdfName);
 	        mail.sendMail();
 	        // shut down the scheduler
-	        sched.shutdown(true);
+	        //sched.shutdown(true);
 	        
 	        System.out.println("Mail enviado");
 		} 
