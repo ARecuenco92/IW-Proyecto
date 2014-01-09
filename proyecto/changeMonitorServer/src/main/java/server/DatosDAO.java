@@ -73,7 +73,7 @@ public class DatosDAO {
 		Timestamp now = new Timestamp(new Date().getTime()-form.getZone()*hour);
 		if(form.getFechaFin().before(now)){
 			result = result + "Fecha final incorrecta ";
-		}else if(now.getTime()+month<form.getFechaFin().getTime()){
+		}else if(now.getTime()+month < form.getFechaFin().getTime()){
 			result = result + "Fecha final incorrecta ";
 		}
 		String EMAIL_PATTERN = 
