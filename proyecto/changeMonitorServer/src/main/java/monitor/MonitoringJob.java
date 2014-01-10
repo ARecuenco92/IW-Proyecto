@@ -3,6 +3,7 @@ package monitor;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -63,6 +64,15 @@ public class MonitoringJob implements Job{
 		} 
 		catch (IOException e) {
 				e.printStackTrace();
+				Facade facade = new Facade();
+				long hour = 3600000;
+				Timestamp date = new Timestamp(System.currentTimeMillis()-zone*hour);
+				ChangeVO changeVO = new ChangeVO(id, -1, date, true);
+				try {
+					facade.insertChange(changeVO);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 		} 
 		catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
