@@ -49,8 +49,8 @@ public class Mail {
 	 */
 	public void sendMail() {
 
-	    final String username = "ingweb2014@gmail.com";
-	    final String password = "ykpfcdmjbpadibut";
+	    final String username = "iwebgrupo5@gmail.com";
+	    final String password = "fckhxhzwlbjnpytt";
 
 	    //Configuracion del servidor de correo 
 	    Properties props = new Properties();

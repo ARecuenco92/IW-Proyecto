@@ -6,6 +6,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import mail.Mail;
@@ -72,13 +73,15 @@ public class MonitoringThread implements Runnable{
 	            .usingJobData("zone", form.getZone())
 	            .build();
 	        
+	        long hour = 3600000;
+	        
 	        // Trigger the job to run on the next round minute
 	        Trigger trigger = newTrigger()
 	            .withIdentity("trigger"+id, "monitoring")
 	            .withSchedule(simpleSchedule()
 	            .withIntervalInMinutes(form.getFreq())
 	            .repeatForever())
-	            .endAt(form.getFechaFin())
+	            .endAt(new Timestamp(form.getFechaFin().getTime()+form.getZone()*hour))
 	            .build();
 	        
 	        // Tell quartz to schedule the job using our trigger
